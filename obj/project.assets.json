@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\naman\\Documents\\GitHub\\Daihoc_FPT_News\\Daihoc_FPT_News\\Daihoc_FPT_News.csproj",
+      "projectUniqueName": "C:\\Users\\naman\\Documents\\GitHub\\Daihoc_FPT_News\\Daihoc_FPT_News.csproj",
       "projectName": "Daihoc_FPT_News",
-      "projectPath": "C:\\Users\\naman\\Documents\\GitHub\\Daihoc_FPT_News\\Daihoc_FPT_News\\Daihoc_FPT_News.csproj",
+      "projectPath": "C:\\Users\\naman\\Documents\\GitHub\\Daihoc_FPT_News\\Daihoc_FPT_News.csproj",
       "packagesPath": "C:\\Users\\naman\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\naman\\Documents\\GitHub\\Daihoc_FPT_News\\Daihoc_FPT_News\\obj\\",
+      "outputPath": "C:\\Users\\naman\\Documents\\GitHub\\Daihoc_FPT_News\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "2d06974f-40da-41da-8891-51a826228c98": {
+      "ProjectGuid": "2d06974f-40da-41da-8891-51a826228c98",
+      "DisplayName": "Daihoc_FPT_News",
+      "ColorIndex": 0
+    },
+    "ef89847f-73e9-419c-9c9c-73054d215937": {
+      "ProjectGuid": "ef89847f-73e9-419c-9c9c-73054d215937",
+      "DisplayName": "Daihoc_FPT_News",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
