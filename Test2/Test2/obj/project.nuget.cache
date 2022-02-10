@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "x1t3YStHprUwzyN1jhzHMiG4uGArk9U5QDV6OGm/0RZ0y4IvAIxhEDj/I0ooGlMqNAHJ25vUjmTA/EEjFbFLxQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\naman\\Documents\\GitHub\\DHFPT_NEWS_SDK-5.0\\Test2\\Test2\\Daihoc_FPT_News.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\naman\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.12\\microsoft.netcore.app.host.win-x64.5.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}
