@@ -33,6 +33,48 @@ namespace Daihoc_FPT_News.Controllers
             return View();
         }
 
+        public IActionResult Majors()
+        {
+            return View();
+        }
+
+        public IActionResult SoftwareTechnology()
+        {
+            return View();
+        }
+        public IActionResult Finance()
+        {
+            return View();
+        }
+        public IActionResult InformationSecurity()
+        {
+            return View();
+        }
+        public IActionResult HotelManagment()
+        {
+            return View();
+        }
+        public IActionResult EnglishLanguage()
+        {
+            return View();
+        }
+        public IActionResult JapaneseLanguage()
+        {
+            return View();
+        }
+        public IActionResult Fee()
+        {
+            return View();
+        }
+        public IActionResult Scholarship()
+        {
+            return View();
+        }
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

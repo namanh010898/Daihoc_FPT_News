@@ -1,0 +1,54 @@
+﻿
+.body-content {
+    transform: translateY(0);
+}
+.body-content a {
+    text-decoration: none;
+}
+
+.body-content a:hover {
+    text-decoration: none;
+    color: #ff7607;
+}
+.header-content {
+    background: #ff7607;
+    text-transform: uppercase;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px
+}
+
+.header-content h1 {
+    color:#fff;
+}
+.footer-title {
+    background: #ff7607;
+    text-transform: uppercase;
+    padding: 6px;
+    text-align: center;
+  
+}
+.footer-title .title {
+        margin: 0;
+        font-size: 30px;
+        color: #fff
+}
+.register-type {
+    margin: 20px auto;
+    padding: 20px;   
+    text-align: center;
+}
+
+.register-button {
+    border: 1px solid #ff7607;
+    padding: 20px 60px;
+    margin: 20px;
+    color: #ff7607;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-decoration: none
+}
+.register-button:hover {
+   color: #fff;
+   background-color: #ff7607;
+ }
