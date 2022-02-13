@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
+<!-- Comment code auto generate -->
 @*<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,14 +11,14 @@
     <link rel="stylesheet" href="~/Daihoc_FPT_News.styles.css" asp-append-version="true" />
 </head>*@
 
-<!-- 404.html  29 Nov 2019 03:34:14 GMT -->
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Construction & Building HTML Template">
     <meta name="author" content="AlexaTheme">
     <title>@ViewData["Title"] - Daihoc_FPT_News</title>
-    <link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/layout/FPT_logo_x-icon.png">
 
     <link rel="stylesheet" href="~/css/fontawesome.min.css">
 
@@ -52,6 +54,21 @@
     <link rel="stylesheet" href="~/Daihoc_FPT_News.styles.css" asp-append-version="true" />
 </head>
 
+<style>
+    /*style thay doi */
+    /*header*/
+    .header-menu-wrap ul li>a {
+        font-size : 14px;
+        padding : 0 13px;
+    }
+
+    /*footer*/
+    .widget-content .widget-links {
+    color: white;
+    padding: 0;
+}
+</style>
+
 <body>
     <!-- Header : Start -->
     <div class="site-preloader-wrap">
@@ -63,11 +80,27 @@
 <div class="container">
 <div class="primary-header-inner">
 <div class="header-logo">
-<a href="#"><img src="~/img/logo-dark.png" alt="Indico"></a>
+<a href="/home"><img src="~/img/layout/logo-fpt-education.png" alt="logo-fpt-education.png"></a>
 </div>
 <div class="header-menu-wrap">
 <ul class="dl-menu">
-<li><a href="#">Home</a>
+    @for(var i=0; i< @ViewBag.MenuList.Count; i ++)
+        {
+            <li>
+                <!-- Neu menu la cau hoi thuong gap thi thay doi style -->
+                <a href="@ViewBag.MenuList[i].Url"> @ViewBag.MenuList[i].Name</a>
+                <!-- Tab tro xuong hien thi thong tin chi tiet -->
+                @*<ul>
+                    <li><a href="index.html">Home Default</a></li>
+                    <li><a href="index-2.html">Home Modern</a></li>
+                </ul>*@
+            </li>
+                                
+        }
+
+
+<!-- Comment code HTML giao dien -->
+@*<li><a href="#">Home</a>
 <ul>
 <li><a href="index.html">Home Default</a></li>
 <li><a href="index-2.html">Home Modern</a></li>
@@ -101,10 +134,11 @@
 <li><a href="blog-single.html">Blog Single</a></li>
 </ul>
 </li>
-<li><a href="contact">Contact</a></li>
+<li><a href="contact">Contact</a></li>*@
 </ul>
 </div>
-<div class="header-right">
+
+@*<div class="header-right">
 <a class="menu-btn" href="#">Request a Quote</a>
 
 <div class="mobile-menu-icon">
@@ -114,7 +148,7 @@
 <div class="line-menu line-half last-line"></div>
 </div>
 </div>
-</div>
+</div>*@
 </div>
 </div>
 </div>
@@ -160,30 +194,61 @@
 <div class="row">
 <div class="col-lg-3 col-sm-6 sm-padding">
 <div class="widget-content">
-<a href="#"><img src="~/img/logo-dark.png" alt="brand"></a>
-<p>Building your own home is about desire, fantasy. But it’s achievable anyone can do it.</p>
+<a href="/home"><img src="~/img/layout/logo-fpt-education.png" alt="logo-fpt-education.png"></a>
+
+
+@*<p>Building your own home is about desire, fantasy. But it’s achievable anyone can do it.</p>*@
 </div>
 </div>
-<div class="col-lg-2 col-sm-6 sm-padding">
+
+    @*load dong footer*@
+    @for(var i=0; i< @ViewBag.MenuList.Count; i ++)
+    {
+                
+                                
+    }
+
+<div class="col-lg-3 col-sm-6 sm-padding">
 <div class="widget-content">
-<h4>Company</h4>
+<h4>HÀ NỘI</h4>
 <ul class="widget-links">
-<li><a href="#">About Us</a></li>
-<li><a href="#">Our Services</a></li>
-<li><a href="#">Clients Reviews</a></li>
-<li><a href="#">Contact Us</a></li>
+<li>Khu Giáo dục và Đào tạo – Khu Công nghệ cao Hòa Lạc – Km29 Đại lộ Thăng Long, H. Thạch Thất, TP. Hà Nội</li>
+<li>Điện thoại: 024 7300 1866</li>
+<li>Email: daihocfpt@fpt.edu.vn</li>
 </ul>
 </div>
 </div>
+
 <div class="col-lg-3 col-sm-6 sm-padding">
+<div class="widget-content">
+<h4>TP. HỒ CHÍ MINH</h4>
+<ul class="widget-links">
+<li><p></p>Lô E2a-7, Đường D1 Khu Công nghệ cao, P. Long Thạnh Mỹ, TP. Thủ Đức, TP. Hồ Chí Minh</li>
+<li>Điện thoại: 028 7300 1866</li>
+<li>Email: daihocfpt@fpt.edu.vn</li>
+</ul>
+</div>
+</div>
+
+<div class="col-lg-3 col-sm-6 sm-padding">
+<div class="widget-content">
+<h4>ĐÀ NẴNG</h4>
+<ul class="widget-links">
+<li>Khu đô thị công nghệ FPT Đà Nẵng, P. Hoà Hải, Q. Ngũ Hành Sơn, TP. Đà Nẵng</li>
+<li>Điện thoại: 0236 730 1866</li>
+<li>Email: daihocfpt@fpt.edu.vn</li>
+</ul>
+</div>
+</div>
+@*<div class="col-lg-3 col-sm-6 sm-padding">
 <div class="widget-content">
 <h4>Headquaters</h4>
 <p>962 Fifth Avenue, 3rd Floor New York, NY10022</p>
 <span><a href="http://html.dynamiclayers.net/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="155d7079797a55716c7b74787c7679746c7067663b7b7061">[email&#160;protected]</a></span>
 <span>(+123) 456 789 101</span>
 </div>
-</div>
-<div class="col-lg-4 col-sm-6 sm-padding">
+</div>*@
+@*<div class="col-lg-4 col-sm-6 sm-padding">
 <div class="widget-content">
 <h4>Newslatter Subscription</h4>
 <p>Subscribe and get 10% off from our <br>architecture company.</p>
@@ -200,13 +265,13 @@
 </div>
 </div>
 </div>
-</div>
+</div>*@
 </div>
 </div>
 </section>
 <footer class="footer-section align-center">
 <div class="container">
-<p><a href="templateshub.net">Templates Hub</a></p>
+<p>© 2022 Bản quyền thuộc về Trường Đại học FPT.</p>
 </div>
 </footer>
     <!-- Footer : End -->
