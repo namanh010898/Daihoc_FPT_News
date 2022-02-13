@@ -1,0 +1,392 @@
+
+
+@{
+    ViewData["Title"] = "Menu";
+    Layout = "_NovaticAdmin";
+}
+
+
+<div class="page-header card">
+    <div class="col">
+        <div class="page-header-title">
+            <i class="fa fa-server"></i>
+            <div class="d-inline">
+                <h3 class="tableTitle">Menu</h3>
+            </div>
+        </div>
+
+        <a href="#" id="btnAddItem" onclick="editItem(0);" class="btn btn-brand btn-elevate btn-icon-sm">
+            <i class="fa fa-plus"></i>
+            <span class='hideOnMobile'>Thêm danh mục</span>
+        </a>
+    </div>
+</div>
+
+<div class="pcoded-inner-content">
+    <div class="main-body">
+        <div class="page-wrapper">
+
+            <!-- Page-body start -->
+            <div class="page-body">
+                <div class="card">
+                    <div class="card-block novaticContainer">
+                        <div class="dt-responsive table-responsive">
+
+                            <table id="tableData" class="table table-hover">
+                                <thead>
+                                    <!--<tr>
+                                                                <th>Index</th>
+                                                                <th>Apply Type ID</th>
+                                                                <th>Active</th>
+                                                                <th>Apply Type Name</th>
+                                                                <th>Description</th>
+                                                                <th>Created Time</th>
+                                                                <th>Detail</th>
+                                                                <th>Delete</th>
+                                                            </tr>-->
+                                <th>Index</th>
+                                <th>ID</th>
+                                <th>Parent ID</th>
+                                <th>Độ ưu tiên</th>
+                                <th>Vị trí hiển thị</th>
+                                <th>Tên menu</th>
+                                <th>Tên tiếng Anh</th>
+                                <th>Mô tả</th>
+                                <th>URL</th>
+                                <th>URL2</th>
+                                <th>Ngày tạo</th>
+
+                                <th>Chi tiết</th>
+                                <th>Xóa</th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                <th>Index</th>
+                                <th>ID</th>
+                                <th>Parent ID</th>
+                                <th>Độ ưu tiên</th>
+                                <th>Vị trí hiển thị</th>
+                                <th>Tên menu</th>
+                                <th>Tên tiếng Anh</th>
+                                <th>Mô tả</th>
+                                <th>URL</th>
+                                <th>URL2</th>
+                                <th>Ngày tạo</th>
+
+                                <th> </th>
+                                <th> </th>
+                                </tfoot>
+                            </table>
+
+                            <div class="modal fade" id="modal-id">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-gradient-info">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">
+                                                &times;
+                                            </button>
+                                            <h4 class="modal-title"><i class="fa fa-edit"></i> Chi tiết</h4>
+                                        </div>
+                                        <div class="modal-body">
+
+
+                                            <form action="" method="POST"
+                                                  onsubmit='updateItem(updatingItemID); return false;' role="form">
+
+                                                <!-- <div class="form-group">
+                                                    <label for="">Apply type ID</label>
+                                                    <input type="text" class="form-control"
+                                                        id="menuId" required readonly
+                                                        placeholder="">
+                                                </div>
+
+
+                                                <div class='form-group'>
+                                                    <label for=''>Apply type name</label>
+                                                    <input type='text' class='form-control'
+                                                        id='menuName' required
+                                                        placeholder=''>
+                                                </div>
+
+
+                                                <div class='form-group'>
+                                                    <label for=''>Description</label>
+                                                    <input type='text' class='form-control'
+                                                        id='menuDescription'
+                                                        placeholder=''>
+                                                </div>
+
+
+                                                <div class='form-group'>
+                                                    <label for=''>CreatedTime</label>
+                                                    <input type='text'
+                                                        class='form-control datetimepicker'
+                                                        id='menuCreatedTime'
+                                                        placeholder=''>
+                                                </div>
+
+
+                                                <div class='form-group' style="">
+                                                    <label for=''>Active</label>
+                                                    <input type='text' class='form-control'
+                                                        id='menuActive' readonly
+                                                        placeholder=''>
+                                                </div>
+                                                -->
+                                                <div class="form-group">
+                                                    <label for="">ID</label><span class='required'>*</span>
+                                                    <input type="number" class="form-control input-id" value="0"
+                                                           id="menuId" required readonly
+                                                           placeholder="">
+                                                </div> <div class="form-group">
+                                                    <label for="">Parent ID</label>
+                                                    <input type="number" class="form-control input-parentID" value="0"
+                                                           id="menuParentID"
+                                                           placeholder="">
+                                                </div> <div class="form-group" style="display:none ">
+                                                    <label for="">Active</label><span class='required'>*</span>
+                                                    <input type="number" class="form-control input-active" value="0"
+                                                           id="menuActive" required
+                                                           placeholder="">
+                                                </div> <div class="form-group">
+                                                    <label for="">Độ ưu tiên</label><span class='required'>*</span>
+                                                    <input type="number" class="form-control input-priority" value="0"
+                                                           id="menuPriority" required
+                                                           placeholder="">
+                                                </div>
+                                                @*<div class="form-group">
+                                                        <label for="">Group ID</label><span class='required'>*</span>
+                                                        <input type="number" class="form-control input-groupID" value="0"
+                                                               id="menuGroupID" required
+                                                               placeholder="">
+                                                    </div>*@
+                                                <div class='form-group row selectContainer'>
+                                                    <label class=''>Vị trí hiển thị</label><span class='required'>*</span>
+                                                    <div class='col-sm-12'>
+                                                        <select name='select' required id='menuGroupID'
+                                                                class='form-control fill dataSelect  input-groupID'
+                                                                style=' border: 1px solid #e9ecef; '>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    var groupIDData = JSON.parse('[{"id":1,"name":"Main Menu"},{"id":2,"name":"Footer Menu"}]');
+                                                    groupIDData.forEach(function (item, index) {
+                                                        var data = {
+                                                            id: item.id,
+                                                            text: item.name
+                                                        };
+                                                        var newOption = new Option(data.text, data.id, false, false);
+                                                        $('#menuGroupID').append(newOption).trigger('change');
+                                                    });
+                                                </script>
+
+                                                <div class="form-group">
+                                                    <label for="">Tên menu</label><span class='required'>*</span>
+                                                    <input type="text" class="form-control  input-name"
+                                                           id="menuName" required
+                                                           placeholder="">
+                                                </div>   <div class="form-group">
+                                                    <label for="">Tên tiếng Anh</label><span class='required'>*</span>
+                                                    <input type="text" class="form-control  input-name2"
+                                                           id="menuName2" required
+                                                           placeholder="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Mô tả</label>
+                                                    <textarea class="form-control  input-description " rows="2" id="menuDescription"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">URL</label><span class='required'>*</span>
+                                                    <textarea class="form-control  input-url " rows="2" id="menuUrl" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">URL2</label><span class='required'>*</span>
+                                                    <textarea class="form-control  input-url2 " rows="2" id="menuUrl2" required></textarea>
+                                                </div><div class='form-group'>
+                                                    <label for=''>Ngày tạo </label><span class='required'>*</span>
+                                                    <div class='input-group date datetimepicker  input-createdTime' id='menuCreatedTimeDiv'>
+                                                        <input type='text' id="menuCreatedTime" required class="form-control" required />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <input style="display:none" id="hiddenSubmit" type="submit"
+                                                       class="btn btn-default" value="Save changes">
+                                            </form>
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">
+                                                Đóng
+                                            </button>
+                                            <button type="button" class="btn btn-primary" id="btnUpdateItem"
+                                                    onclick="document.getElementById('hiddenSubmit').click();">
+                                                Lưu thông tin
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+        var hiddenItem = ["active"];
+        var dataSource = [];
+        var updatingItemID = 0;
+        var tableUpdating = 0;
+        var table;
+
+        $(document).ready(function () {
+            // Load data
+            loadData();
+            // includeLibrary();
+
+            // Datetime picker
+            $('.datetimepicker').datetimepicker({
+                format: 'DD-MM-YYYY HH:mm:ss'
+            });
+
+            $('.dataSelect').select2();
+
+            $(".datetimepicker").on('dp.change', function (e) {
+                // console.log(this.value);
+                this.value = moment(this.value).format("DD-MM-YYYY HH:mm:ss");
+                // console.log(this.value);
+            })
+
+        });
+
+
+        function loadData() {
+            $.ajax({
+                
+                url : "@{@ViewBag.SystemConfigs["HOMEPAGE_URL"].Description}/menu/api/list";
+                type: "GET",
+                contentType: "application/json",
+                success: function (responseData) {
+                    // debugger;
+                    var data = responseData.data;
+                    dataSource = data;
+
+
+
+
+                    data.forEach(function (item, index) {
+                        // console.log(item, index);
+                        var rowContent = "";
+                        rowContent += "<td style='text-align: center;'>" + (index + 1) + "</td>";
+                        for (var key in item) {
+                            if (item.hasOwnProperty(key)) {
+                                // console.log(key + " -> " + item[key]);
+                                if (!hiddenItem.includes(key)) {
+                                    if (key == "groupID") {
+                                        if (item[key] == "1") {
+                                            rowContent += "<td class='row" + item.id + "-column column-" + key + "' property='" + key + "'>Main Menu</td>";
+                                        }
+                                        else {
+                                            rowContent += "<td class='row" + item.id + "-column column-" + key + "' property='" + key + "'>Footer Menu</td>";
+                                        }
+                                    }
+                                    else {
+                                        rowContent += "<td class='row"+item.id+"-column column-"+key+"' property='"+key+"'>" + item[key] + "</td>";
+                                    }
+                                }
+                            }
+                        }
+                        rowContent += "<td style='text-align: center;'><a onclick='editItem(" + item.id + ")'><i class='fa fa-edit fa-2x' style='color:#03a9f4'></i></a></td>";
+                        rowContent += "<td style='text-align: center;'><a onclick='deleteItem(" + item.id + ")'><i class='fa fa-trash fa-2x' style='color:#e91e63'></i></a></td>";
+
+                        var newRow = "<tr id='row"+item.id+"' >" + rowContent + "</tr>";
+                        $(newRow).appendTo($("#tableData tbody"));
+
+                        // $("#tableData #dummyRow").after("<tr id='row"+item.id+"' >" + rowContent + "</tr>");
+                    });
+
+                    //Init datatable
+                    if (tableUpdating === 0) {
+                        initTable();
+                    }
+
+                    //update data with foreign key
+                    updateTable();
+                },
+                error: function (e) {
+                    //console.log(e.message);
+                    initTable();
+                }
+            });
+        }
+
+        function initTable(){
+            table = $('#tableData').DataTable({
+                aLengthMenu: [
+                    [10, 25, 50, 100, 200, -1],
+                    [10, 25, 50, 100, 200, 'Tất cả']
+                ],
+                'order': [
+                    [1, 'desc']
+                ]
+            });
+
+
+
+            table.on('order.dt search.dt', function() {
+                table.column(0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).nodes().each(function(cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+
+            $('#tableData tfoot th:not(:last-child):not(:nth-last-child(2))').each(function() {
+                var title = $(this).text();
+                $(this).html("<input type='text' class='tableFooterFilter' placeholder=' ' />");
+            });
+
+            table.columns().every(function() {
+                var that = this;
+
+                $('input', this.footer()).on('keyup change', function() {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+        }
+
+
+
+        function getItemByID(id) {
+            const result = dataSource.find(item => parseInt(item.id) === id);
+            return result;
+        }
+
+        function camelToSentenceCase(input) {
+            var text = input;
+            var result = text.replace(/([A-Z])/g, " $1");
+            var finalResult = result.charAt(0).toUpperCase() + result.slice(1);
+            return finalResult;
+        }
+
+</script>

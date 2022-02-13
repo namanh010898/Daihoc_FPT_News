@@ -35,7 +35,7 @@ namespace Daihoc_FPT_News.Controllers
             //_dir = _env.ContentRootPath + "\\wwwroot\\files\\upload\\common\\";
         }
 
-        // Trang mẫu : Start
+        // Trang của Nam Anh : Start
 
         // trang homepage
         [HttpGet]
@@ -47,7 +47,6 @@ namespace Daihoc_FPT_News.Controllers
             //string lang = await SetLanguage(); ViewBag.Lang = lang;
 
             string lang = "vi";
-
             List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
             ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
             List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
@@ -58,59 +57,119 @@ namespace Daihoc_FPT_News.Controllers
 
         [HttpGet]
         [Route("home/privacy")]
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
 
         [HttpGet]
         [Route("error404")]
-        public IActionResult Error404()
+        public async Task<IActionResult> Error404()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
         // Trang mẫu : End
 
         // Trang của Quỳnh : Start
-        public IActionResult Majors()
+        public async Task<IActionResult> Majors()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
 
-        public IActionResult SoftwareTechnology()
+        public async Task<IActionResult> SoftwareTechnology()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
-        public IActionResult Finance()
+        public async Task<IActionResult> Finance()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
-        public IActionResult InformationSecurity()
+        public async Task<IActionResult> InformationSecurity()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
-        public IActionResult HotelManagment()
+        public async Task<IActionResult> HotelManagment()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
-        public IActionResult EnglishLanguage()
+        public async Task<IActionResult> EnglishLanguage()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
-        public IActionResult JapaneseLanguage()
+        public async Task<IActionResult> JapaneseLanguage()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
-        public IActionResult Fee()
+        public async Task<IActionResult> Fee()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
-        public IActionResult Scholarship()
+        public async Task<IActionResult> Scholarship()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
-        public IActionResult Contact()
+        public async Task<IActionResult> Contact()
         {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
         // Trang của Quỳnh : End

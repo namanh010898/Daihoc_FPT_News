@@ -1,9 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     //@Layout = null;
+    // nếu k viết thì layout cũng tự hiểu là áp dụng mặc định "../Shared/_Layout"
+    Layout = "../Shared/_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <partial name="../Shared/DaihocFPTNews/_FrontEnd_HomePage" /> 
