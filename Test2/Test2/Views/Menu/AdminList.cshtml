@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Menu";
-    Layout = "_NovaticAdmin";
 }
 
 
@@ -50,10 +49,10 @@
                                 <th>Độ ưu tiên</th>
                                 <th>Vị trí hiển thị</th>
                                 <th>Tên menu</th>
-                                <th>Tên tiếng Anh</th>
+                                @*<th>Tên tiếng Anh</th>*@
                                 <th>Mô tả</th>
                                 <th>URL</th>
-                                <th>URL2</th>
+                                @*<th>URL2</th>*@
                                 <th>Ngày tạo</th>
 
                                 <th>Chi tiết</th>
@@ -68,10 +67,10 @@
                                 <th>Độ ưu tiên</th>
                                 <th>Vị trí hiển thị</th>
                                 <th>Tên menu</th>
-                                <th>Tên tiếng Anh</th>
+                                @*<th>Tên tiếng Anh</th>*@
                                 <th>Mô tả</th>
                                 <th>URL</th>
-                                <th>URL2</th>
+                                @*<th>URL2</th>*@
                                 <th>Ngày tạo</th>
 
                                 <th> </th>
@@ -253,7 +252,7 @@
         var updatingItemID = 0;
         var tableUpdating = 0;
         var table;
-
+        var a = window.location.href
         $(document).ready(function () {
             // Load data
             loadData();
@@ -271,14 +270,12 @@
                 this.value = moment(this.value).format("DD-MM-YYYY HH:mm:ss");
                 // console.log(this.value);
             })
-
         });
 
 
         function loadData() {
             $.ajax({
-                
-                url : "@{@ViewBag.SystemConfigs["HOMEPAGE_URL"].Description}/menu/api/list";
+                url: window.location.href + "/menu/api/list",
                 type: "GET",
                 contentType: "application/json",
                 success: function (responseData) {
@@ -375,6 +372,297 @@
             });
         }
 
+        function editItem(id) {
+            updatingItemID = id;
+            $("#modal-id").modal('show');
+            debugger;
+            let obj = getItemByID(id);
+            		$("#menuId").val(id > 0 ? obj.id : "");
+            $("#menuParentID").val(id > 0 ? obj.parentId : "");
+
+		$("#menuActive").val(id > 0 ? obj.active : "");
+		$("#menuPriority").val(id > 0 ? obj.priority : "");
+		$("#menuGroupID").val(id > 0 ? obj.groupID : "");
+		$("#menuName").val(id > 0 ? obj.name : "");
+		$("#menuName2").val(id > 0 ? obj.name2 : "");
+		$("#menuDescription").val(id > 0 ? obj.description : "");
+		$("#menuUrl").val(id > 0 ? obj.url : "");
+		$("#menuUrl2").val(id > 0 ? obj.url2 : "");
+		$("#menuCreatedTime").val(id > 0 ? obj.createdTime : "");
+        $('#menuGroupID').trigger('change');
+
+            // $("#menuId").val(id > 0 ? obj.id : "");
+            // $("#menuName").val(id > 0 ? obj.name : "");
+            // $("#menuDescription").val(id > 0 ? obj.description : "");
+            // $("#menuCreatedTime").val(id > 0 ? obj.createdTime : "");
+            // $("#menuActive").val(id > 0 ? obj.active : "");
+
+            if(id==0){
+                $("#menuActive").val(1);
+                $("#menuCreatedTime").val(new Date());
+                $("#menuGroupID").val();
+            }
+            else{
+                // correcting data
+                //$('#buyProvinceID').val(obj.provinceID.split(", ")).trigger('change');
+
+            }
+            formatNumber();
+        }
+
+
+        function updateItem(id) {
+            debugger;
+            var actionName = (id == 0 ? "Create" : "Update");
+            let obj = getItemByID(id);
+            let objName = id > 0 ? obj.name : " ";
+                var parentIdUpdate = 0;
+            try {
+                if ($("#menuParentID").val() != "") {
+                    parentIdUpdate = $("#menuParentID").val();
+                }
+            } catch (e) {
+                parentIdUpdate = 0;
+            }
+
+            validateInputNumber();
+
+            // "id": $("#menuId").val(),
+            // "name": $("#menuName").val(),
+            // "description": $("#menuDescription").val(),
+            // "createdTime": $("#menuCreatedTime").val(),
+            // "active": $("#menuActive").val()
+            var updatingObj = {
+                "id": $("#menuId").val(),
+                "parentId": parentIdUpdate,
+		        "active": $("#menuActive").val(),
+		        "priority": $("#menuPriority").val(),
+		        "groupID": $("#menuGroupID").val(),
+		        "name": $("#menuName").val(),
+		        "name2": $("#menuName2").val(),
+		        "description": $("#menuDescription").val(),
+		        "url": $("#menuUrl").val(),
+		        "url2": $("#menuUrl2").val(),
+		        "createdTime": datetimeFormat($("#menuCreatedTime").val()),
+            };
+
+            // correcting data
+            //updatingObj.provinceID = updatingObj.provinceID.join(", ");
+
+
+            Swal.fire({
+                title: 'Bạn có chắc không?',
+                text: "Thực hiện " + actionName + " item " + objName,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#443',
+                confirmButtonText: 'Đồng ý!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.value) {
+                    $("#modal-id").modal('hide');
+
+                    //CALL AJAX TO UPDATE
+                    if (id > 0) {
+                        $.ajax({
+                            url: window.location.href + "/menu/api/update",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify(updatingObj),
+                            success: function (responseData) {
+                                // debugger;
+                                if (responseData.status == 200 && responseData.message === "SUCCESS") {
+                                    Swal.fire(
+                                        'Updated!',
+                                        'Item ' + objName + ' has been successfully updated!',
+                                        'success'
+                                    );
+                                    var updatedItemIndex= dataSource.findIndex(item => parseInt(item.id) === id);
+                                    dataSource[updatedItemIndex] = updatingObj;
+                                    updateTable(id,updatingObj,"update");
+                                }
+                            },
+                            error: function (e) {
+                                //console.log(e.message);
+                                Swal.fire(
+                                    'Error!',
+                                    'Could\' update item, please check your data',
+                                    'error'
+                                );
+                            }
+                        });
+                    };
+
+                    //CALL AJAX TO CREATE
+                    if (id == 0) {
+                        updatingObj.id = 1;
+                        delete updatingObj["id"]
+                        updatingObj.active = 1;
+                        updatingObj.createdTime = new Date();
+                        console.log(updatingObj);
+                        $.ajax({
+                            url: window.location.href + "/menu/api/add",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify(updatingObj),
+                            success: function (responseData) {
+                                // debugger;
+                                if (responseData.status == 201 && responseData.message === "CREATED") {
+                                    Swal.fire(
+                                        'Created!',
+                                        'New item has been successfully created!',
+                                        'success'
+                                    );
+                                    updatingObj = responseData.data;
+                                    dataSource.push(updatingObj);
+                                    updateTable(0,updatingObj,"add");
+                                }
+                            },
+                            error: function (e) {
+                                //console.log(e.message);
+                                Swal.fire(
+                                    'Error!',
+                                    'Could\' create item, please check your data',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                }
+            })
+        }
+
+        function deleteItem(id) {
+            let obj = getItemByID(id);
+            Swal.fire({
+                title: 'Bạn có muốn xóa không?',
+                text: "Bạn sẽ không thể phục hồi lại dữ liệu này sau khi xóa!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Đồng ý!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.value) {
+
+                    //CALL AJAX TO DELETE
+                    $.ajax({
+                        url: window.location.href + "/menu/api/delete",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ "id": id }),
+                        success: function (responseData) {
+                            // debugger;
+                            if (responseData.status == 200 && responseData.message === "SUCCESS") {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Item ' + obj.name + ' has been deleted.',
+                                    'success'
+                                );
+                                updateTable(id,0,"delete");
+                            }
+                        },
+                        error: function (e) {
+                            //console.log(e.message);
+                            Swal.fire(
+                                'Error!',
+                                'Item ' + obj.name + ' can\'t be deleted.',
+                                'error'
+                            );
+                        }
+                    });
+
+                }
+            })
+        }
+
+        function updateTable(id,obj,action) {
+            if(action === "delete"){
+                table.row("#row"+id).remove().draw();
+            }
+
+            if(action === "add"){
+                console.log("Added:"+obj);
+
+                //var addedItems = [obj];
+                var addedItems = obj;
+                var addedValues =[];
+
+
+                addedItems.forEach(function (item, index) {
+                    // console.log(item, index);
+                    var rowContent = "";
+                    addedValues.push("<td style='text-align: center;'></td>");
+                    for (var key in item) {
+                        if (item.hasOwnProperty(key)) {
+                            // console.log(key + " -> " + item[key]);
+                            if (!hiddenItem.includes(key)) {
+                                if (key == "groupID") {
+                                    if (item[key] == "1") {
+                                            addedValues.push("<td class='row"+item.id+"-column column-"+key+"' property='"+key+"'>Main Menu</td>");
+                                        }
+                                        else {
+                                            addedValues.push("<td class='row"+item.id+"-column column-"+key+"' property='"+key+"'>Footer Menu</td>");
+                                        }
+                                    }
+                                else {
+                                    addedValues.push("<td class='row"+item.id+"-column column-"+key+"' property='"+key+"'>" + item[key] + "</td>");
+                                }
+                            }
+                        }
+                    }
+                    addedValues.push("<td style='text-align: center;'><a onclick='editItem(" + item.id + ")'><i class='fa fa-edit fa-2x' style='color:#03a9f4'></i></a></td>");
+                    addedValues.push("<td style='text-align: center;'><a onclick='deleteItem(" + item.id + ")'><i class='fa fa-trash fa-2x' style='color:#e91e63'></i></a></td>");
+
+                    table.row.add(addedValues).draw();
+                });
+                // location.reload();
+            }
+
+            if(action === "update"){
+                $(".row"+id+"-column").each(function(){
+                    var propertyName = $(this).attr("property");
+                    console.log(propertyName);
+
+                    for (var key in obj) {
+                        if (key === propertyName && obj.hasOwnProperty(key)) {
+                            if (key == "groupID") {
+                                if (obj[key] == "1") {
+                                    this.innerText = "Main Menu";
+                                }
+                                else {
+                                    this.innerText = "Footer Menu";
+                                }
+                            }
+                            else {
+                                this.innerText = obj[key];
+                            }
+                        }
+                    }
+
+                });
+            }
+
+            //Update columns with foreign key
+            // var NO_FKFKUpdateSelector = 'tr';
+            // if( !(typeof(id) === 'undefined')) {
+            //     NO_FKFKUpdateSelector = '#row'+id;
+            // }
+            // $('#tableData tbody '+NO_FKFKUpdateSelector+' td[property=NO_FKID]').each(function(){
+            //     // debugger;
+            //     var menuID = parseInt($(this).attr('class').replace('row','').replace('-column',''));
+            //     var menuObj = getItemByID(menuID);
+            //     var NO_FKID = parseInt(menuObj.NO_FKID);
+            //     var NO_FKObj = NO_FKData.find(item => parseInt(item.id) === NO_FKID);
+            //     $(this).text(NO_FKObj.name);
+            //     // console.log('FK updated for Staff '+menuID);
+            // });
+
+
+            formatNumber();
+        }
 
 
         function getItemByID(id) {
