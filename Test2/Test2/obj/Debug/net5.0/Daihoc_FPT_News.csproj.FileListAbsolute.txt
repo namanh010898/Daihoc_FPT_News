@@ -172,3 +172,4 @@ C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Raz
 C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shared\DaihocFPTNews\Service2.cshtml.g.cs
 C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shared\DaihocFPTNews\_FrontEnd_HomePage.cshtml.g.cs
 C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Menu\AdminList.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shared\_Layout - Admin.cshtml.g.cs

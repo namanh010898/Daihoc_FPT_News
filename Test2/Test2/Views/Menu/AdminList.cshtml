@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Menu";
+    //Layout = "../Shared/_Layout - Admin"; 
+    Layout = null;
 }
 
 
@@ -279,7 +281,7 @@
                 type: "GET",
                 contentType: "application/json",
                 success: function (responseData) {
-                    // debugger;
+                    debugger;
                     var data = responseData.data;
                     dataSource = data;
 
@@ -287,8 +289,8 @@
 
 
                     data.forEach(function (item, index) {
-                        // console.log(item, index);
-                        var rowContent = "";
+                        //console.log(item, index);
+                        var rowContent = "";  
                         rowContent += "<td style='text-align: center;'>" + (index + 1) + "</td>";
                         for (var key in item) {
                             if (item.hasOwnProperty(key)) {
