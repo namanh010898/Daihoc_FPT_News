@@ -60,7 +60,7 @@ namespace Daihoc_FPT_News
 
             //services.AddScoped<IPostMetaRepository, PostMetaRepository>();
 
-            //services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<INewRepository, NewRepository>();
 
             services.AddScoped<IMenuRepository, MenuRepository>();
 

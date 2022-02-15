@@ -17,63 +17,34 @@ namespace Daihoc_FPT_News.Models
         {
         }
 
-        //public virtual DbSet<Account> Account { get; set; }
-        //public virtual DbSet<AccountMeta> AccountMeta { get; set; }
-        //public virtual DbSet<AccountType> AccountType { get; set; }
-        //public virtual DbSet<ViewStatus> ViewStatus { get; set; }
-        //public virtual DbSet<ActivityLog> ActivityLog { get; set; }
-        //public virtual DbSet<Authentication> Authentication { get; set; }
-        //public virtual DbSet<Comment> Comment { get; set; }
-        //public virtual DbSet<FavouritePost> FavouritePost { get; set; }
-        //public virtual DbSet<FeaturedPost> FeaturedPost { get; set; }
-        //public virtual DbSet<ReadedPost> ReadedPost { get; set; }
-        //public virtual DbSet<LanguageConfig> LanguageConfig { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<AccountType> AccountTypes { get; set; }
+        public virtual DbSet<Answer> Answers { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<EventRequest> EventRequests { get; set; }
+        public virtual DbSet<EventRequestStatus> EventRequestStatuses { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
-        //public virtual DbSet<Message> Message { get; set; }
-        //public virtual DbSet<Notification> Notification { get; set; }
-        //public virtual DbSet<Post> Post { get; set; }
-        //public virtual DbSet<PostCategory> PostCategory { get; set; }
-        //public virtual DbSet<PostLayout> PostLayout { get; set; }
-        //public virtual DbSet<PostMeta> PostMeta { get; set; }
-        //public virtual DbSet<PostTopic> PostTopic { get; set; }
-        //public virtual DbSet<PostTag> PostTag { get; set; }
-        //public virtual DbSet<PostType> PostType { get; set; }
-        //public virtual DbSet<Province> Province { get; set; }
-        //public virtual DbSet<SystemConfig> SystemConfig { get; set; }
-        //public virtual DbSet<Tag> Tag { get; set; }
-        //public virtual DbSet<Topic> Topic { get; set; }
-        //public virtual DbSet<Subscribe> Subscribe { get; set; }
-
-        //public virtual DbSet<EventRequest> EventRequest { get; set; }
-        //public virtual DbSet<EventRequestStatus> EventRequestStatus { get; set; }
-
-
-        //public virtual DbSet<Answer> Answer { get; set; }
-
-        //public virtual DbSet<Question> Question { get; set; }
-        //public virtual DbSet<QuestionType> QuestionType { get; set; }
-
-        //public virtual DbSet<Survey> Survey { get; set; }
-        //public virtual DbSet<SurveyAccount> SurveyAccount { get; set; }
-        //public virtual DbSet<SurveyMeta> SurveyMeta { get; set; }
-        //public virtual DbSet<SurveySection> SurveySection { get; set; }
-        //public virtual DbSet<SurveySectionAccount> SurveySectionAccount { get; set; }
-        //public virtual DbSet<SurveySectionAccountDetail> SurveySectionAccountDetail { get; set; }
-        //public virtual DbSet<Recomment> Recomment { get; set; }
-
-        //public virtual DbSet<SurveySectionQuestion> SurveySectionQuestion { get; set; }
-        //public virtual DbSet<SurveyType> SurveyType { get; set; }
-        //public virtual DbSet<Contact> Contact { get; set; }
-
-        //public virtual DbSet<EnterpriseType> EnterpriseType { get; set; }
-        //public virtual DbSet<FinancialProduct> FinancialProduct { get; set; }
-        //public virtual DbSet<FinancialProductDetail> FinancialProductDetail { get; set; }
-        //public virtual DbSet<FinancialProductType> FinancialProductType { get; set; }
-        //public virtual DbSet<Organization> Organization { get; set; }
-        //public virtual DbSet<OrganizationType> OrganizationType { get; set; }
-        //public virtual DbSet<PreferentialProduct> PreferentialProduct { get; set; }
-        //public virtual DbSet<PreferentialProductDetail> PreferentialProductDetail { get; set; }
-        //public virtual DbSet<PreferentialType> PreferentialType { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<PostCategory> PostCategories { get; set; }
+        public virtual DbSet<PostLayout> PostLayouts { get; set; }
+        public virtual DbSet<PostTag> PostTags { get; set; }
+        public virtual DbSet<PostTopic> PostTopics { get; set; }
+        public virtual DbSet<PostType> PostTypes { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<QuestionType> QuestionTypes { get; set; }
+        public virtual DbSet<Recomment> Recomments { get; set; }
+        public virtual DbSet<Subcribe> Subcribes { get; set; }
+        public virtual DbSet<Survey> Surveys { get; set; }
+        public virtual DbSet<SurveyAccount> SurveyAccounts { get; set; }
+        public virtual DbSet<SurveySection> SurveySections { get; set; }
+        public virtual DbSet<SurveySectionAccount> SurveySectionAccounts { get; set; }
+        public virtual DbSet<SurveySectionAccountDetail> SurveySectionAccountDetails { get; set; }
+        public virtual DbSet<SurveySectionQuestion> SurveySectionQuestions { get; set; }
+        public virtual DbSet<SurveyType> SurveyTypes { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<ViewStatus> ViewStatuses { get; set; }
 
 
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -1730,6 +1701,679 @@ namespace Daihoc_FPT_News.Models
             //        .IsRequired()
             //        .HasMaxLength(255);
             //});
-        }
+            modelBuilder.Entity<Account>(entity =>
+            {
+                entity.ToTable("Account");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.AccountTypeId).HasColumnName("AccountTypeID");
+
+                entity.Property(e => e.Address)
+                    .IsRequired()
+                    .HasColumnType("ntext");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Info)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Phone).HasMaxLength(255);
+
+                entity.Property(e => e.Photo).HasColumnType("ntext");
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<AccountType>(entity =>
+            {
+                entity.ToTable("AccountType");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<Answer>(entity =>
+            {
+                entity.ToTable("Answer");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.Answers)
+                    .HasForeignKey(d => d.QuestionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Answer_Question");
+            });
+
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.ToTable("Comment");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.AccountId).HasColumnName("AccountID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Email).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("ntext");
+
+                entity.Property(e => e.PostId).HasColumnName("PostID");
+
+                entity.Property(e => e.Text).HasColumnType("ntext");
+
+                entity.Property(e => e.Website).HasColumnType("ntext");
+            });
+
+            modelBuilder.Entity<Contact>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Contact");
+
+                entity.Property(e => e.AccountId).HasColumnName("AccountID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Phone)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.HasOne(d => d.Account)
+                    .WithMany()
+                    .HasForeignKey(d => d.AccountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Contact_Account");
+            });
+
+            modelBuilder.Entity<EventRequest>(entity =>
+            {
+                entity.ToTable("EventRequest");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Email).HasMaxLength(255);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("ntext");
+
+                entity.Property(e => e.Phone).HasMaxLength(255);
+
+                entity.HasOne(d => d.Account)
+                    .WithMany(p => p.EventRequests)
+                    .HasForeignKey(d => d.AccountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EventRequest_Account");
+
+                entity.HasOne(d => d.EventRequestStatus)
+                    .WithMany(p => p.EventRequests)
+                    .HasForeignKey(d => d.EventRequestStatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EventRequest_EventRequestStatus");
+
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.EventRequests)
+                    .HasForeignKey(d => d.PostId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EventRequest_Post");
+            });
+
+            modelBuilder.Entity<EventRequestStatus>(entity =>
+            {
+                entity.ToTable("EventRequestStatus");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+           
+
+            modelBuilder.Entity<Notification>(entity =>
+            {
+                entity.ToTable("Notification");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<Post>(entity =>
+            {
+                entity.ToTable("Post");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.ClosedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.EventAddress).HasColumnType("ntext");
+
+                entity.Property(e => e.FileUrl)
+                    .HasColumnType("ntext")
+                    .HasColumnName("FileURL");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.OpenTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Photo)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.PostAccountId).HasColumnName("PostAccountID");
+
+                entity.Property(e => e.PostCategoryId).HasColumnName("PostCategoryID");
+
+                entity.Property(e => e.PostCommentStatusId).HasColumnName("PostCommentStatusID");
+
+                entity.Property(e => e.PostLayoutId).HasColumnName("PostLayoutID");
+
+                entity.Property(e => e.PostPublishStatusId).HasColumnName("PostPublishStatusID");
+
+                entity.Property(e => e.PostTypeId).HasColumnName("PostTypeID");
+
+                entity.Property(e => e.PublishedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Text).HasColumnType("ntext");
+
+                entity.Property(e => e.Url).HasMaxLength(255);
+
+                entity.Property(e => e.Video).HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<PostCategory>(entity =>
+            {
+                entity.ToTable("PostCategory");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.ParentId).HasColumnName("ParentID");
+
+                entity.Property(e => e.Photo).HasMaxLength(255);
+
+                entity.Property(e => e.Slug).HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<PostLayout>(entity =>
+            {
+                entity.ToTable("PostLayout");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<PostTag>(entity =>
+            {
+                entity.ToTable("PostTag");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.PostId).HasColumnName("PostID");
+
+                entity.Property(e => e.TagId).HasColumnName("TagID");
+
+                entity.HasOne(d => d.Tag)
+                    .WithMany(p => p.PostTags)
+                    .HasForeignKey(d => d.TagId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PostTag_Tag");
+            });
+
+            modelBuilder.Entity<PostTopic>(entity =>
+            {
+                entity.ToTable("PostTopic");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.PostId).HasColumnName("PostID");
+
+                entity.Property(e => e.TopicId).HasColumnName("TopicID");
+            });
+
+            modelBuilder.Entity<PostType>(entity =>
+            {
+                entity.ToTable("PostType");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<Question>(entity =>
+            {
+                entity.ToTable("Question");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Photo).HasMaxLength(255);
+
+                entity.Property(e => e.QuestionTypeId).HasColumnName("QuestionTypeID");
+
+                entity.Property(e => e.Text).HasColumnType("ntext");
+
+                entity.HasOne(d => d.QuestionType)
+                    .WithMany(p => p.Questions)
+                    .HasForeignKey(d => d.QuestionTypeId)
+                    .HasConstraintName("FK_Question_QuestionType");
+            });
+
+            modelBuilder.Entity<QuestionType>(entity =>
+            {
+                entity.ToTable("QuestionType");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<Recomment>(entity =>
+            {
+                entity.ToTable("Recomment");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name).IsRequired();
+
+                entity.Property(e => e.SurveySectionId).HasColumnName("SurveySectionID");
+
+                entity.HasOne(d => d.SurveySection)
+                    .WithMany(p => p.Recomments)
+                    .HasForeignKey(d => d.SurveySectionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Recomment_SurveySection");
+            });
+
+            modelBuilder.Entity<Subcribe>(entity =>
+            {
+                entity.ToTable("Subcribe");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<Survey>(entity =>
+            {
+                entity.ToTable("Survey");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.PublishedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.SurveyTypeId).HasColumnName("SurveyTypeID");
+
+                entity.Property(e => e.Text).HasColumnType("ntext");
+
+                entity.HasOne(d => d.SurveyType)
+                    .WithMany(p => p.Surveys)
+                    .HasForeignKey(d => d.SurveyTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Survey_SurveyType");
+            });
+
+            modelBuilder.Entity<SurveyAccount>(entity =>
+            {
+                entity.ToTable("SurveyAccount");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.AccountId).HasColumnName("AccountID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.SurveyId).HasColumnName("SurveyID");
+
+                entity.HasOne(d => d.Survey)
+                    .WithMany(p => p.SurveyAccounts)
+                    .HasForeignKey(d => d.SurveyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SurveyAccount_Survey");
+            });
+
+            modelBuilder.Entity<SurveySection>(entity =>
+            {
+                entity.ToTable("SurveySection");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.SurveyId).HasColumnName("SurveyID");
+
+                entity.Property(e => e.SurveySectionId).HasColumnName("SurveySectionID");
+
+                entity.Property(e => e.Text).HasColumnType("ntext");
+
+                entity.HasOne(d => d.Survey)
+                    .WithMany(p => p.SurveySections)
+                    .HasForeignKey(d => d.SurveyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SurveySection_Survey");
+            });
+
+            modelBuilder.Entity<SurveySectionAccount>(entity =>
+            {
+                entity.ToTable("SurveySectionAccount");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.SurveyAccountId).HasColumnName("SurveyAccountID");
+
+                entity.HasOne(d => d.SurveyAccount)
+                    .WithMany(p => p.SurveySectionAccounts)
+                    .HasForeignKey(d => d.SurveyAccountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SurveySectionAccount_SurveyAccount");
+            });
+
+            modelBuilder.Entity<SurveySectionAccountDetail>(entity =>
+            {
+                entity.ToTable("SurveySectionAccountDetail");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.AnswerId).HasColumnName("AnswerID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.QuestionId).HasColumnName("QuestionID");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.SurveySectionAccountDetails)
+                    .HasForeignKey(d => d.QuestionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SurveySectionAccountDetail_Question");
+
+                entity.HasOne(d => d.SurveySectionAccountNavigation)
+                    .WithMany(p => p.SurveySectionAccountDetails)
+                    .HasForeignKey(d => d.SurveySectionAccount)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SurveySectionAccountDetail_SurveyAccount");
+            });
+
+            modelBuilder.Entity<SurveySectionQuestion>(entity =>
+            {
+                entity.ToTable("SurveySectionQuestion");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.QuestionId).HasColumnName("QuestionID");
+
+                entity.Property(e => e.SurveySectionId).HasColumnName("SurveySectionID");
+
+                entity.Property(e => e.Text).HasColumnType("ntext");
+
+                entity.HasOne(d => d.SurveySection)
+                    .WithMany(p => p.SurveySectionQuestions)
+                    .HasForeignKey(d => d.SurveySectionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SurveySectionQuestion_SurveySection");
+            });
+
+            modelBuilder.Entity<SurveyType>(entity =>
+            {
+                entity.ToTable("SurveyType");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<Tag>(entity =>
+            {
+                entity.ToTable("Tag");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Slug)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<ViewStatus>(entity =>
+            {
+                entity.ToTable("ViewStatus");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+            OnModelCreatingPartial(modelBuilder);
+        
+        //modelBuilder.Entity<EventRequest>(entity =>
+        //{
+        //    entity.ToTable("EventRequest");
+
+        //    entity.Property(e => e.Id).HasColumnName("ID");
+
+        //    entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+
+        //    entity.Property(e => e.Description).HasColumnType("ntext");
+
+        //    entity.Property(e => e.Email).HasMaxLength(255);
+
+        //    entity.Property(e => e.Name)
+        //        .IsRequired()
+        //        .HasColumnType("ntext");
+
+        //    entity.Property(e => e.Phone).HasMaxLength(255);
+
+        //    entity.HasOne(d => d.Account)
+        //        .WithMany(p => p.EventRequests)
+        //        .HasForeignKey(d => d.AccountId)
+        //        .OnDelete(DeleteBehavior.ClientSetNull)
+        //        .HasConstraintName("FK_EventRequest_Account");
+
+        //    entity.HasOne(d => d.EventRequestStatus)
+        //        .WithMany(p => p.EventRequests)
+        //        .HasForeignKey(d => d.EventRequestStatusId)
+        //        .OnDelete(DeleteBehavior.ClientSetNull)
+        //        .HasConstraintName("FK_EventRequest_EventRequestStatus");
+
+        //    entity.HasOne(d => d.Post)
+        //        .WithMany(p => p.EventRequests)
+        //        .HasForeignKey(d => d.PostId)
+        //        .OnDelete(DeleteBehavior.ClientSetNull)
+        //        .HasConstraintName("FK_EventRequest_Post");
+        //});
+    }
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

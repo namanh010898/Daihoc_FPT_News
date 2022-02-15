@@ -18,16 +18,17 @@ namespace Daihoc_FPT_News.Controllers
     {
 
         private readonly ILogger<HomeController> _logger;
-
+        INewRepository repositoryNew;
         IMenuRepository repositoryMenu;
 
         public HomeController(ILogger<HomeController> logger,
             ICacheHelper cacheHelper,
-            IMenuRepository _repositoryMenu
+            IMenuRepository _repositoryMenu,
+            INewRepository _repositoryNew
             ) : base(cacheHelper)
         {
             repositoryMenu = _repositoryMenu;
-
+            repositoryNew = _repositoryNew;
             _logger = logger;
 
             // upload file, anh : chua xu lo
@@ -54,7 +55,22 @@ namespace Daihoc_FPT_News.Controllers
 
             return View();
         }
+        [HttpGet]
+        [Route("news")]
+        public async Task<IActionResult> news()
+        {
+            // set language : chua xu li
+            //string lang = await SetLanguage(); ViewBag.Lang = lang;
 
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
+            List<Post> GetPost = await repositoryNew.List();
+            ViewBag.Post = GetPost;
+            return View();
+        }
         [HttpGet]
         [Route("home/privacy")]
         public async Task<IActionResult> Privacy()

@@ -1,0 +1,82 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
+
+    <!-- Latest compiled and minified JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+
+
+</head>
+
+<body>
+    <div>
+
+        <div class="container">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="border-bottom-color: #f05123;border-bottom-style:solid ;">
+                <p style="text-transform: uppercase; color: white;text-align: center;padding: 10px;background-color: #f05123;">tin tức và hoạt động mới nhất</p>
+
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+
+                </div>
+
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    <p style="color: #f05123;">@ViewBag.Post[0].CreatedTime</p>
+                    <h3>@ViewBag.Post[0].Name</h3>
+                    <p>@ViewBag.Post[0].Description</p>
+                    <button style="float: right;color: #f05123;background: transparent;border: none;">xem thêm</button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="container">
+            @for (int i = 0; i < 4; i++)
+            {
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="height:185px;">
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h3>@ViewBag.Post[i].Name</h3>
+                        <p>@ViewBag.Post[i].CreatedTime</p>
+                    </div>
+
+                </div>
+            }
+
+
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
