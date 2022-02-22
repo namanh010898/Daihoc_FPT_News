@@ -190,6 +190,18 @@ namespace Daihoc_FPT_News.Controllers
         }
         // Trang của Quỳnh : End
 
+        [HttpGet]
+        [Route("Introduce")]
+        public async Task<IActionResult> Introduce()
+        {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
