@@ -345,3 +345,7 @@ C:\Users\BA HUU\Desktop\FPT news\Test2\Test2\obj\Debug\net5.0\Daihoc_FPT_News.dl
 C:\Users\BA HUU\Desktop\FPT news\Test2\Test2\obj\Debug\net5.0\ref\Daihoc_FPT_News.dll
 C:\Users\BA HUU\Desktop\FPT news\Test2\Test2\obj\Debug\net5.0\Daihoc_FPT_News.pdb
 C:\Users\BA HUU\Desktop\FPT news\Test2\Test2\obj\Debug\net5.0\Daihoc_FPT_News.genruntimeconfig.cache
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\bin\Debug\net5.0\Daihoc_FPT_News.StaticWebAssets.xml
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\Introduce.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\News.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shared\_Layout - Admin.cshtml.g.cs

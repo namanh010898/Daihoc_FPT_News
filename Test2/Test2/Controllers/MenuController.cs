@@ -32,25 +32,6 @@ namespace Daihoc_FPT_News.Controllers
         [Route("admin/List")]
         public async Task<IActionResult> AdminList()
         {
-            // lấy session user info
-            //int UserID = 0;
-            //int UserTypeID = 0;
-            //try
-            //{
-            //    string UserIDSession = HttpContext.Session.GetString("UserID");
-            //    if (UserIDSession != null && UserIDSession != "")
-            //    {
-            //        UserID = Convert.ToInt32(UserIDSession);
-
-            //        List<AccountViewModel> AccountDataList = await repositoryAccount.Detail(UserID);
-            //        AccountViewModel accountObj = AccountDataList[0];
-            //        ViewBag.UserTypeID = accountObj.AccountTypeID;
-
-            //        UserTypeID = accountObj.AccountTypeID;
-            //    }
-            //}
-            //catch (Exception) { throw; }
-
             // kiểm tra nếu không phải admin thì điều hướng 403
             //if (UserTypeID != 10001)
             //{
@@ -68,10 +49,7 @@ namespace Daihoc_FPT_News.Controllers
 
                 ViewBag.entities = dataList;
                 return View(dataList);
-
-                //var novaticResponse = NovaticResponse.SUCCESS(dataList.Cast<object>().ToList());
-                ////var response = Newtonsoft.Json.JsonConvert.SerializeObject(novaticResponse);
-                //return Ok(novaticResponse);
+                
             }
             catch (Exception)
             {
