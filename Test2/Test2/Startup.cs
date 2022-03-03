@@ -12,6 +12,7 @@ using Daihoc_FPT_News.Models;
 using Daihoc_FPT_News.Repository;
 using Daihoc_FPT_News.Util;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Daihoc_FPT_News
 {
@@ -64,6 +65,9 @@ namespace Daihoc_FPT_News
 
             services.AddScoped<IMenuRepository, MenuRepository>();
 
+            services.AddScoped<IPostRepository, PostRepository>();
+
+            services.AddScoped<IPostCategoryRepository, PostCategoryRepository>();
             //services.AddScoped<ILanguageConfigRepository, LanguageConfigRepository>();
 
             //services.AddScoped<ITagRepository, TagRepository>();
@@ -144,8 +148,8 @@ namespace Daihoc_FPT_News
             //services.AddScoped<IPreferentialProductDetailRepository, PreferentialProductDetailRepository>();
 
 
-
             services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,231 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "Bài viết";
+    Layout = "_Layout - Admin";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+    <!-- Latest compiled and minified JS -->
+    
+
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+    <style>
+        #example_wrapper {
+            padding-top: 11%;
+        }
+        .modal-footer .btn + .btn {
+           margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <table id="example" class="display" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Mô tả</th>
+                <th>Tác giả</th>
+                <th>Chi tiết</th>
+                <th>Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < ViewBag.PostCount; i++)
+            {
+                <tr>
+                    <td>@ViewBag.Posts[i].Name</td>
+                    <td>@ViewBag.Posts[i].Description</td>
+                    <td>@ViewBag.Posts[i].PostAccountId</td>
+                    <td><button onclick="Edit(@ViewBag.Posts[i].Id)" data-toggle="modal" data-target="#modal-id">Sửa</button></td>
+                    <td><button onclick="DeleteItem(@ViewBag.Posts[i].Id)">Xóa</button></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Tên</th>
+                <th>Mô tả</th>
+                <th>Tác giả</th>
+                <th>Chi tiết</th>
+                <th>Xóa</th>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="modal fade" id="modal-id">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-info">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                   <form action="" method="POST" onsubmit="Edit(0)" role="form">
+                       <div class="row">
+                           <div class="col-sm-4">
+                               <div class="form-group row selecContainer">
+                                   <label class="">Danh mục bài viết</label><span class="required">*</span>
+                                   <div class="col-sm-12">
+                                       <select name="select" required id="postPostCategotyID" class="form-control fill dataSelect input-postCategoryID" style=' border: 1px solid #e9ecef; '>
+                                       </select>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-sm-4">
+                               <div class="form-group row selecContainer">
+                                   <label class="">Loại bài viết</label><span class="required">*</span>
+                                   <div class="col-sm-12">
+                                       <select name="select" required id="postPostLayoutId" class="form-control fill dataSelect input-postLayoutId" style=' border: 1px solid #e9ecef; '>
+                                       </select>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-sm-4">
+                               <div class="form-group row selecContainer">
+                                   <label class="">Bình luận</label><span class="required">*</span>
+                                   <div class="col-sm-12">
+                                       <select name="select" required id="postComment" class="form-control fill dataSelect input-comment" style=' border: 1px solid #e9ecef; '>
+                                       </select>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-sm-4">
+                               <div class="form-group row selecContainer">
+                                   <label class="">Lượt thích</label><span class="required">*</span>
+                                   <div class="col-sm-12">
+                                       <select name="select" required id="postLike" class="form-control fill dataSelect input-Like" style=' border: 1px solid #e9ecef; '>
+                                       </select>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-sm-4">
+                               <div class="form-group">
+                                   <label for="">Tên bài viết</label>
+                                   <input type="text" class="form-control input-name" id="postName" required placeholder="" />
+                               </div>
+                           </div>
+                           <div class="col-sm-4">
+                               <div class="form-group">
+                                   <label for="">Nội dung</label>
+                                   <textarea class="form-control  input-text " rows="2"
+                                             id="postText"></textarea>
+                               </div>
+                           </div>
+                           <div class="col-sm-4">
+                               <div class="form-group">
+                                   <label for="">Tác giả</label>
+                                   <input type="text" class="form-control input-postaccountid" id="postaccount" required placeholder="" />
+                               </div>
+                           </div>
+                           <div class="col-sm-4">
+                               <div class="form-group">
+                                   <label for="">Url</label>
+                                   <input type="text" class="form-control input-url" id="url" required placeholder="" />
+                               </div>
+                           </div>
+                       </div>
+                   </form> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnUpdateItem"
+                           >
+                        Save
+                        changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    async function GetDetailItem(id) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://localhost:5001/post/api/detail/" + id,
+                type: "GET",
+                async: 'true',
+                contentType: "application/json",
+                success: function (responseData) {
+                    Item = JSON.parse(responseData);
+                    resolve(Item)
+                },
+                error: function (e) {
+                    reject(e);
+                }
+            });
+        })
+    }
+    async function Edit(id) {
+        $("#postPostCategotyID").find('option').remove().end();
+        $("#modal-id").show();
+        $.ajax({
+            url: "https://localhost:5001/postcategory/api/list",
+            type: "GET",
+            async: 'true',
+            contentType: "application/json",
+            success: function (responseData) {
+                postCategoryData = JSON.parse(responseData);
+                $.each(postCategoryData,function (index, item) {
+                    var data = {
+                        id: item.Id,
+                        text: item.Name
+                    };
+                    var newOption = new Option(data.text, data.id, false, false);
+                    $("#postPostCategotyID").append(newOption).trigger('change');
+                });
+            },
+            error: function (e) {
+
+            }
+        });
+
+        var obj = await GetDetailItem(id);
+        $('#postPostCategotyID option[value=' + obj[0].PostCategoryId + ']').attr('selected', 'selected');
+        $(".input-name").val(obj[0].Name);
+        $(".input-text").val(obj[0].Text);
+    }
+    async function DeleteItem(id) {
+        var obj = await GetDetailItem(id);
+        $.ajax({
+            url: "https://localhost:5001/post/api/delete",
+            type: 'POST',
+            contentType: 'application/JSON',
+            data: JSON.stringify({"id": id}),
+            success: function (responseData) {
+                if (responseData.status == 200 && respnoseData.message === "SUCCESS") {
+                    Swal.fire('Deleted!',
+                        'Item ' + obj.name + ' has been deleted.',
+                        'success');
+                }
+                location.reload();
+            }
+        })
+    }
+</script>

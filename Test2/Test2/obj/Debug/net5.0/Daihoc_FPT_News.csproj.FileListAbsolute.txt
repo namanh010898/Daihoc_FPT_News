@@ -349,3 +349,7 @@ C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\bin\Debug\net5.0\Dai
 C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\Introduce.cshtml.g.cs
 C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\News.cshtml.g.cs
 C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shared\_Layout - Admin.cshtml.g.cs
+D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\bin\Debug\net5.0\Daihoc_FPT_News.StaticWebAssets.xml
+D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\Introduce.cshtml.g.cs
+D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Post\AdminList.cshtml.g.cs
+D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shared\News_Detail.cshtml.g.cs
