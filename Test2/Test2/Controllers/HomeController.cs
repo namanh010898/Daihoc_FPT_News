@@ -81,7 +81,21 @@ namespace Daihoc_FPT_News.Controllers
             ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
             return View();
         }
-
+        [HttpGet]
+        [Route("detail/{url}")]
+        public async Task<IActionResult> PostDetail(string url)
+        {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
+            var split = url.Split("-");
+            var id = split[0];
+            var Post = await repositoryPost.Detail(Convert.ToInt32(id));
+            ViewBag.Post = Post;
+            return View();
+        }
         [HttpGet]
         [Route("error404")]
         public async Task<IActionResult> Error404()
