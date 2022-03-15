@@ -1,0 +1,215 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "Bài viết";
+    Layout = "_Layout - Admin";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CKEditor</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="" id="">
+        <div class="modal-dialog modal-lg novaticeditForm">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-info">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        <i class="fa fa-edit"></i> <span id="updateTitle">Chi tiết bài viết</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div>
+                            <span>
+                                <label for="id">ID</label><span style="color:red">*</span>
+                                <input type="text" id="id" readonly />
+                            </span>
+                            <span>
+                                <label for="posttypeid">Post Type</label><span style="color:red">*</span>
+                                <select id="posttypeid">
+                                </select>
+                            </span>
+                        </div>
+                        <label for="postaccountid">Author</label><span style="color:red">*</span>
+                        <div><input type="text" id="postaccountid" readonly /></div>
+                        <label for="postlayoutid">Post Layout</label><span style="color:red">*</span>
+                        <div>
+                            <select id="postlayoutid">
+                            </select>
+                        </div>
+                        <label for="">Post Publish</label><span style="color:red">*</span>
+                        <div>
+                            <select id="postpublishid">
+                                <option value="1">Public</option>
+                                <option value="0">Private</option>
+                            </select>
+                        </div>
+                        <label for="">Post Comment</label><span style="color:red">*</span>
+                        <div>
+                            <select id="postcommentstatusid">
+                                <option value="1">Public</option>
+                                <option value="0">Private</option>
+                            </select>
+                        </div>
+                        <label for="">Url</label>
+                        <div><input type="text" readonly /></div>
+                        <label for="Photo">Photo</label>
+                        <div><input type="text" id="photo" /></div>
+                        <label for="Video">Video</label>
+                        <div><input type="text" id="video" /></div>
+                        <label for="Name">Name</label>
+                        <div><input type="text" id="name" /></div>
+                        <label for="description">Description</label>
+                        <div><textarea id="description"></textarea></div>
+                        <label for="">Content</label>
+                        <div id="editor" class="Text"></div>
+                        <label for="">Published Time</label>
+                        <div><input type="datetime-local" id="publishtime" /></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="display:none" class="btn btn-default" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnUpdateItem"
+                            onclick="Submit()">
+                        Save
+                        changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var posttext;
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(editor => {
+                posttext = editor
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+
+        function LoadDataPostType() {
+            $.ajax({
+                url: "https://localhost:5001/posttype/api/list",
+                type: "GET",
+                async: 'true',
+                contentType: "application/json",
+                success: function (responseData) {
+                    postLayoutData = JSON.parse(responseData);
+                    $.each(postLayoutData, function (index, item) {
+                        var data = {
+                            id: item.Id,
+                            text: item.Name
+                        };
+                        var newOption = new Option(data.text, data.id, false, false);
+                        $("#posttypeid").append(newOption).trigger('change');
+                    });
+                },
+                error: function (e) {
+
+                }
+            });
+        }
+        function LoadDataPostLayout() {
+            $.ajax({
+                url: "https://localhost:5001/postlayout/api/list",
+                type: "GET",
+                async: 'true',
+                contentType: "application/json",
+                success: function (responseData) {
+                    postLayoutData = JSON.parse(responseData);
+                    $.each(postLayoutData, function (index, item) {
+                        var data = {
+                            id: item.Id,
+                            text: item.Name
+                        };
+                        var newOption = new Option(data.text, data.id, false, false);
+                        $("#postlayoutid").append(newOption).trigger('change');
+                    });
+                },
+                error: function (e) {
+
+                }
+            });
+        }
+        $(document).ready(function () {
+            LoadDataPostType();
+            LoadDataPostLayout();
+        });
+        function Submit() {
+            Swal.fire({
+                type: 'question',
+                title: 'Confirm?',
+                text: 'Do you want to create new post ?',
+                showCloseButton: true,
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var pubtime = "";
+                    var data = posttext.getData();
+                    if ($("#publishtime").val() != null) {
+                        pubtime = $("#publishtime").val();
+                    } else {
+                        var currentdate = new Date();
+                        var datetime = currentdate.getDate() + "/"
+                            + (currentdate.getMonth()+1)  + "/"
+                            + currentdate.getFullYear() + " "
+                            + currentdate.getHours() + ":"
+                            + currentdate.getMinutes() + ":"
+                            + currentdate.getSeconds();
+                        pubtime = datetime;
+                    }
+                    var obj = {
+                        "PostTypeID": $("#posttypeid").val(),
+                        "PostAccountID": 10001,
+                        "PostLayoutID": $("#postlayoutid").val(),
+                        "PostPublishStatusID": $("#postpublishid").val(),
+                        "PostCommentStatusID": $("#postcommentstatusid").val(),
+                        "Active": 1,
+                        "Url": "",
+                        "Photo": $("#photo").val(),
+                        "Video": $("#video").val(),
+                        "Name": $("#name").val(),
+                        "Description": $("#description").val(),
+                        "Text": data,
+                        "PublishedTime": pubtime
+                    }
+                    $.ajax({
+                        url: "https://localhost:5001/post/api/add",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(obj),
+                        success: function (responseData) {
+                            if (responseData.status == 201) {
+                                Swal.fire({
+                                    title: '<strong>Đã đăng bài viết!</strong>',
+                                    type: 'success',
+                                    showCloseButton: true,
+                                    focusConfirm: false,
+                                });
+                            }
+                        }
+                    })
+                } else if (result.isDenied) {
+
+                }
+            })
+        }
+    </script>
+</body>
+</html>

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Daihoc_FPT_News.Repository
 {
-    public interface IPostLayoutRepository
+    public interface IPostTypeRepository
     {
-        Task<List<PostLayout>> List();
+        Task<List<PostType>> List();
     }
 }

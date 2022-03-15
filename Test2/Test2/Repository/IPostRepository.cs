@@ -10,7 +10,7 @@ namespace Daihoc_FPT_News.Repository
     {
         Task<List<Post>> List();
         Task<List<Post>> Detail(int id);
-
+        Task<Post> Add(Post post);
         Task Delete(Post post);
         Task Update(Post post);
     }

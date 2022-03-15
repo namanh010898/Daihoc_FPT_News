@@ -14,13 +14,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <!-- Latest compiled and minified JS -->
-    
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
+    <title>Document</title>
 
     <script>
         $(document).ready(function () {
@@ -31,14 +30,16 @@
         #example_wrapper {
             padding-top: 11%;
         }
+
         .modal-footer .btn + .btn {
-           margin-bottom: 10px;
+            margin-bottom: 10px;
         }
     </style>
 
 </head>
 
 <body>
+    <button onclick="Add()" data-toggle="modal" data-target="#modal-id">Add</button>
     <table id="example" class="display" style="width:100%;">
         <thead>
             <tr>
@@ -182,34 +183,67 @@
             });
         })
     }
-    async function Edit(id) {
-        $("#postPostCategotyID").find('option').remove().end();
-        $("#modal-id").show();
+    function LoadDataPostLayout() {
         $.ajax({
-            url: "https://localhost:5001/postcategory/api/list",
+            url: "https://localhost:5001/postlayout/api/list",
             type: "GET",
             async: 'true',
             contentType: "application/json",
             success: function (responseData) {
-                postCategoryData = JSON.parse(responseData);
-                $.each(postCategoryData,function (index, item) {
+                postLayoutData = JSON.parse(responseData);
+                $.each(postLayoutData, function (index, item) {
                     var data = {
                         id: item.Id,
                         text: item.Name
                     };
                     var newOption = new Option(data.text, data.id, false, false);
-                    $("#postPostCategotyID").append(newOption).trigger('change');
+                    $("#postPostLayoutId").append(newOption).trigger('change');
                 });
             },
             error: function (e) {
 
             }
         });
+    }
 
-        var obj = await GetDetailItem(id);
-        $('#postPostCategotyID option[value=' + obj[0].PostCategoryId + ']').attr('selected', 'selected');
-        $(".input-name").val(obj[0].Name);
-        $(".input-text").val(obj[0].Text);
+    async function Edit(id) {
+        if (id == 0) {
+            $("#modal-id").show();
+        } else {
+            $("#postPostCategotyID").find('option').remove().end();
+            $("#modal-id").show();
+            $.ajax({
+                url: "https://localhost:5001/postcategory/api/list",
+                type: "GET",
+                async: 'true',
+                contentType: "application/json",
+                success: function (responseData) {
+                    postCategoryData = JSON.parse(responseData);
+                    $.each(postCategoryData, function (index, item) {
+                        var data = {
+                            id: item.Id,
+                            text: item.Name
+                        };
+                        var newOption = new Option(data.text, data.id, false, false);
+                        $("#postPostCategotyID").append(newOption).trigger('change');
+                    });
+                },
+                error: function (e) {
+
+                }
+            });
+
+            var obj = await GetDetailItem(id);
+            $('#postPostCategotyID option[value=' + obj[0].PostCategoryId + ']').attr('selected', 'selected');
+            LoadDataPostLayout();
+            $(".input-name").val(obj[0].Name);
+            $(".input-text").val(obj[0].Text);
+        }
+            
+    }
+    function Add() {
+        $("#postPostCategotyID").find('option').remove().end();
+       
     }
     async function DeleteItem(id) {
         var obj = await GetDetailItem(id);

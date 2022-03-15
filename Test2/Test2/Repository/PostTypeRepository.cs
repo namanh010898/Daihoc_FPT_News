@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Daihoc_FPT_News.Repository
 {
-    public class PostLayoutRepository : IPostLayoutRepository
+    public class PostTypeRepository : IPostTypeRepository
     {
         DaihocFPTNewsContext db;
-        public PostLayoutRepository(DaihocFPTNewsContext _db)
+        public PostTypeRepository(DaihocFPTNewsContext _db)
         {
             db = _db;
         }
-        public async Task<List<PostLayout>> List()
+        public async Task<List<PostType>> List()
         {
-            return await db.PostLayouts.Where(x => x.Active == 1).ToListAsync();
+            return await db.PostTypes.Where(x => x.Active == 1).ToListAsync();
         }
     }
 }

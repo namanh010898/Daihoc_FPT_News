@@ -68,6 +68,10 @@ namespace Daihoc_FPT_News
             services.AddScoped<IPostRepository, PostRepository>();
 
             services.AddScoped<IPostCategoryRepository, PostCategoryRepository>();
+
+            services.AddScoped<IPostLayoutRepository, PostLayoutRepository>();
+
+            services.AddScoped<IPostTypeRepository, PostTypeRepository>();
             //services.AddScoped<ILanguageConfigRepository, LanguageConfigRepository>();
 
             //services.AddScoped<ITagRepository, TagRepository>();

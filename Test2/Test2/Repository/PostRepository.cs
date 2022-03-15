@@ -15,6 +15,17 @@ namespace Daihoc_FPT_News.Repository
             db = _db;
         }
 
+        public async Task<Post> Add(Post post)
+        {
+            if (db != null)
+            {
+                await db.Posts.AddAsync(post);
+                await db.SaveChangesAsync();
+                return post;
+            }
+            return null;
+        }
+
         public async Task Delete(Post post)
         {
             if (db != null)
@@ -43,9 +54,37 @@ namespace Daihoc_FPT_News.Repository
             return null;
         }
 
-        public Task Update(Post post)
+        public async Task Update(Post obj)
         {
-            throw new NotImplementedException();
+            if(db != null)
+            {
+                db.Posts.Attach(obj);
+                db.Entry(obj).Property(x => x.PostTypeId).IsModified = true;
+                db.Entry(obj).Property(x => x.PostAccountId).IsModified = true;
+                db.Entry(obj).Property(x => x.PostCategoryId).IsModified = true;
+                db.Entry(obj).Property(x => x.PostLayoutId).IsModified = true;
+                db.Entry(obj).Property(x => x.PostPublishStatusId).IsModified = true;
+                db.Entry(obj).Property(x => x.PostCommentStatusId).IsModified = true;
+                db.Entry(obj).Property(x => x.Photo).IsModified = true;
+                db.Entry(obj).Property(x => x.Video).IsModified = true;
+                db.Entry(obj).Property(x => x.ViewCount).IsModified = true;
+                db.Entry(obj).Property(x => x.CommentCount).IsModified = true;
+                db.Entry(obj).Property(x => x.LikeCount).IsModified = true;
+                db.Entry(obj).Property(x => x.Active).IsModified = true;
+                db.Entry(obj).Property(x => x.Url).IsModified = true;
+                db.Entry(obj).Property(x => x.Name).IsModified = true;
+                db.Entry(obj).Property(x => x.Description).IsModified = true;
+                db.Entry(obj).Property(x => x.Text).IsModified = true;
+                db.Entry(obj).Property(x => x.OpenTime).IsModified = true;
+                db.Entry(obj).Property(x => x.ClosedTime).IsModified = true;
+                db.Entry(obj).Property(x => x.EventAddress).IsModified = true;
+                db.Entry(obj).Property(x => x.FileUrl).IsModified = true;
+                //db.Entry(obj).Property(x => x.PublishedTime).IsModified = true;
+                //db.Entry(obj).Property(x => x.CreatedTime).IsModified = true;
+
+                //Commit the transaction
+                await db.SaveChangesAsync();
+            }
         }
     }
 }

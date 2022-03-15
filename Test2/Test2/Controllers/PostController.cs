@@ -40,6 +40,15 @@ namespace Daihoc_FPT_News.Controllers
             return View();
         }
         [HttpGet]
+        [Route("add/post")]
+        public async Task<IActionResult> AddPost()
+        {
+            //var listPost = await repositoryPost.List();
+            //ViewBag.Posts = listPost;
+            //ViewBag.PostCount = listPost.Count;
+            return View();
+        }
+        [HttpGet]
         [Route("api/detail/{id}")]
         public async Task<IActionResult> Detail(int id)
         {
@@ -76,6 +85,33 @@ namespace Daihoc_FPT_News.Controllers
                     {
                         return NotFound();
                     }
+                    return BadRequest();
+                }
+            }
+            return BadRequest();
+        }
+
+        [HttpPost]
+        [Route("api/Add")]
+        public async Task<IActionResult> Add([FromBody]Post model)
+        {
+            if (ModelState.IsValid)
+            {
+                var listpost = await repositoryPost.List();
+                model.Active = 1;
+                model.CreatedTime = DateTime.Now;
+                if (model.CommentCount == null) model.CommentCount = 0;
+                if (model.ViewCount == null) model.ViewCount = 0;
+                if (model.LikeCount == null) model.LikeCount = 0;
+                try
+                {
+                    var newObj = await repositoryPost.Add(model);
+                    newObj.Url = NovaticUtil.ConvertToURL(newObj.Id + "-" + newObj.Name);
+                    await repositoryPost.Update(newObj);
+                    return Created("", newObj);
+                }
+                catch (Exception e)
+                {
                     return BadRequest();
                 }
             }
