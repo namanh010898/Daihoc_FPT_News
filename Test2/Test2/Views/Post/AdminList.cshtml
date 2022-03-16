@@ -13,12 +13,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Latest compiled and minified JS -->
     @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-
+ 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
     <title>Document</title>
 
     <script>
@@ -27,10 +27,6 @@
         });
     </script>
     <style>
-        #example_wrapper {
-            padding-top: 11%;
-        }
-
         .modal-footer .btn + .btn {
             margin-bottom: 10px;
         }
@@ -39,7 +35,7 @@
 </head>
 
 <body>
-    <button onclick="Add()" data-toggle="modal" data-target="#modal-id">Add</button>
+    <button onclick="window.location.href='/post/add/post'" style="width:100px;height:40px;background-color:lightgreen;border-color:white;float:right;margin-bottom:1%;">Add</button>
     <table id="example" class="display" style="width:100%;">
         <thead>
             <tr>
@@ -76,85 +72,68 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-gradient-info">
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">
-                        &times;
-                    </button>
                 </div>
                 <div class="modal-body">
-                   <form action="" method="POST" onsubmit="Edit(0)" role="form">
-                       <div class="row">
-                           <div class="col-sm-4">
-                               <div class="form-group row selecContainer">
-                                   <label class="">Danh mục bài viết</label><span class="required">*</span>
-                                   <div class="col-sm-12">
-                                       <select name="select" required id="postPostCategotyID" class="form-control fill dataSelect input-postCategoryID" style=' border: 1px solid #e9ecef; '>
-                                       </select>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-sm-4">
-                               <div class="form-group row selecContainer">
-                                   <label class="">Loại bài viết</label><span class="required">*</span>
-                                   <div class="col-sm-12">
-                                       <select name="select" required id="postPostLayoutId" class="form-control fill dataSelect input-postLayoutId" style=' border: 1px solid #e9ecef; '>
-                                       </select>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-sm-4">
-                               <div class="form-group row selecContainer">
-                                   <label class="">Bình luận</label><span class="required">*</span>
-                                   <div class="col-sm-12">
-                                       <select name="select" required id="postComment" class="form-control fill dataSelect input-comment" style=' border: 1px solid #e9ecef; '>
-                                       </select>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-sm-4">
-                               <div class="form-group row selecContainer">
-                                   <label class="">Lượt thích</label><span class="required">*</span>
-                                   <div class="col-sm-12">
-                                       <select name="select" required id="postLike" class="form-control fill dataSelect input-Like" style=' border: 1px solid #e9ecef; '>
-                                       </select>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-sm-4">
-                               <div class="form-group">
-                                   <label for="">Tên bài viết</label>
-                                   <input type="text" class="form-control input-name" id="postName" required placeholder="" />
-                               </div>
-                           </div>
-                           <div class="col-sm-4">
-                               <div class="form-group">
-                                   <label for="">Nội dung</label>
-                                   <textarea class="form-control  input-text " rows="2"
-                                             id="postText"></textarea>
-                               </div>
-                           </div>
-                           <div class="col-sm-4">
-                               <div class="form-group">
-                                   <label for="">Tác giả</label>
-                                   <input type="text" class="form-control input-postaccountid" id="postaccount" required placeholder="" />
-                               </div>
-                           </div>
-                           <div class="col-sm-4">
-                               <div class="form-group">
-                                   <label for="">Url</label>
-                                   <input type="text" class="form-control input-url" id="url" required placeholder="" />
-                               </div>
-                           </div>
-                       </div>
-                   </form> 
+                    <div>
+                        <span>
+                            <label for="id">ID</label><span style="color:red">*</span>
+                            <input type="text" id="id" readonly />
+                        </span>
+                        <span>
+                            <label for="posttypeid">Post Type</label><span style="color:red">*</span>
+                            <select id="posttypeid">
+                            </select>
+                        </span>
+                    </div>
+                    <div>
+                        <label for="postcategoryid">Post Category</label>
+                        <div>
+                            <select id="postcategoryid">
+                            </select>
+                        </div>
+                    </div>
+                    <label for="postaccountid">Author</label><span style="color:red">*</span>
+                    <div><input type="text" id="postaccountid" readonly /></div>
+                    <label for="postlayoutid">Post Layout</label><span style="color:red">*</span>
+                    <div>
+                        <select id="postlayoutid">
+                        </select>
+                    </div>
+                    <label for="">Post Publish</label><span style="color:red">*</span>
+                    <div>
+                        <select id="postpublishid">
+                            <option value="1">Public</option>
+                            <option value="0">Private</option>
+                        </select>
+                    </div>
+                    <label for="">Post Comment</label><span style="color:red">*</span>
+                    <div>
+                        <select id="postcommentstatusid">
+                            <option value="1">Public</option>
+                            <option value="0">Private</option>
+                        </select>
+                    </div>
+                    <label for="">Url</label>
+                    <div><input type="text" id="url" readonly /></div>
+                    <label for="Photo">Photo</label>
+                    <div><input type="text" id="photo" /></div>
+                    <label for="Video">Video</label>
+                    <div><input type="text" id="video" /></div>
+                    <label for="Name">Name</label>
+                    <div><input type="text" id="name" /></div>
+                    <label for="description">Description</label>
+                    <div><textarea id="description"></textarea></div>
+                    <label for="">Content</label>
+                    <div id="editor" class="Text"></div>
+                    <label for="">Published Time</label>
+                    <div><input type="datetime-local" id="publishtime" /></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default"
                             data-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary" id="btnUpdateItem"
-                           >
+                    <button type="button" class="btn btn-primary" id="btnUpdateItem" onclick="Submit()">
                         Save
                         changes
                     </button>
@@ -166,6 +145,128 @@
 
 </html>
 <script>
+    var posttext;
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            posttext = editor
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+
+    function LoadDataPostType() {
+        $.ajax({
+            url: "https://localhost:5001/posttype/api/list",
+            type: "GET",
+            async: 'true',
+            contentType: "application/json",
+            success: function (responseData) {
+                postLayoutData = JSON.parse(responseData);
+                $.each(postLayoutData, function (index, item) {
+                    var data = {
+                        id: item.Id,
+                        text: item.Name
+                    };
+                    var newOption = new Option(data.text, data.id, false, false);
+                    $("#posttypeid").append(newOption).trigger('change');
+                });
+            },
+            error: function (e) {
+
+            }
+        });
+    }
+    function LoadDataPostLayout() {
+        $.ajax({
+            url: "https://localhost:5001/postlayout/api/list",
+            type: "GET",
+            async: 'true',
+            contentType: "application/json",
+            success: function (responseData) {
+                postLayoutData = JSON.parse(responseData);
+                $.each(postLayoutData, function (index, item) {
+                    var data = {
+                        id: item.Id,
+                        text: item.Name
+                    };
+                    var newOption = new Option(data.text, data.id, false, false);
+                    $("#postlayoutid").append(newOption).trigger('change');
+                });
+            },
+            error: function (e) {
+
+            }
+        });
+    }
+    function LoadDataPostCategory() {
+        $.ajax({
+            url: "https://localhost:5001/postcategory/api/list",
+            type: "GET",
+            async: 'true',
+            contentType: 'application/json',
+            success: function (responseData) {
+                postcategorydata = JSON.parse(responseData);
+                $.each(postcategorydata, function (index, item) {
+                    var data = {
+                        id: item.Id,
+                        text: item.Name
+                    };
+                    var newOption = new Option(data.text, data.id, false, false);
+                    $("#postcategoryid").append(newOption).trigger('change');
+                });
+            }
+        })
+    }
+    
+    function Submit() {
+        Swal.fire({
+            type: 'question',
+            title: 'Confirm?',
+            text: 'Do you want to edit this post ?',
+            showCloseButton: true,
+            showCancelButton: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var data = posttext.getData();
+                var obj = {
+                    "ID": $("#id").val(),
+                    "PostTypeID": $("#posttypeid").val(),
+                    "PostAccountID": 10001,
+                    "PostLayoutID": $("#postlayoutid").val(),
+                    "PostPublishStatusID": $("#postpublishid").val(),
+                    "PostCommentStatusID": $("#postcommentstatusid").val(),
+                    "Active": 1,
+                    "Url": $("#url").val(),
+                    "Photo": $("#photo").val(),
+                    "Video": $("#video").val(),
+                    "Name": $("#name").val(),
+                    "Description": $("#description").val(),
+                    "Text": data,
+                    "PublishedTime": $("#publishtime").val()
+                }
+                $.ajax({
+                    url: "https://localhost:5001/post/api/edit",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(obj),
+                    success: function (responseData) {
+                        Swal.fire({
+                            type: 'confirm',
+                            title: '<strong>Đã chỉnh sửa bài viết!</strong>',
+                            showCloseButton: true,
+                            focusConfirm: false,
+                        });
+                        location.reload();
+                    }
+                })
+            } else if (result.isDenied) {
+
+            }
+        })
+    }
+
     async function GetDetailItem(id) {
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -183,82 +284,60 @@
             });
         })
     }
-    function LoadDataPostLayout() {
-        $.ajax({
-            url: "https://localhost:5001/postlayout/api/list",
-            type: "GET",
-            async: 'true',
-            contentType: "application/json",
-            success: function (responseData) {
-                postLayoutData = JSON.parse(responseData);
-                $.each(postLayoutData, function (index, item) {
-                    var data = {
-                        id: item.Id,
-                        text: item.Name
-                    };
-                    var newOption = new Option(data.text, data.id, false, false);
-                    $("#postPostLayoutId").append(newOption).trigger('change');
-                });
-            },
-            error: function (e) {
-
-            }
-        });
-    }
 
     async function Edit(id) {
-        if (id == 0) {
-            $("#modal-id").show();
-        } else {
-            $("#postPostCategotyID").find('option').remove().end();
-            $("#modal-id").show();
-            $.ajax({
-                url: "https://localhost:5001/postcategory/api/list",
-                type: "GET",
-                async: 'true',
-                contentType: "application/json",
-                success: function (responseData) {
-                    postCategoryData = JSON.parse(responseData);
-                    $.each(postCategoryData, function (index, item) {
-                        var data = {
-                            id: item.Id,
-                            text: item.Name
-                        };
-                        var newOption = new Option(data.text, data.id, false, false);
-                        $("#postPostCategotyID").append(newOption).trigger('change');
-                    });
-                },
-                error: function (e) {
-
-                }
-            });
-
-            var obj = await GetDetailItem(id);
-            $('#postPostCategotyID option[value=' + obj[0].PostCategoryId + ']').attr('selected', 'selected');
-            LoadDataPostLayout();
-            $(".input-name").val(obj[0].Name);
-            $(".input-text").val(obj[0].Text);
-        }
-            
-    }
-    function Add() {
-        $("#postPostCategotyID").find('option').remove().end();
-       
-    }
-    async function DeleteItem(id) {
+        $("#modal-id").show();
+        $('#postcategoryid').find('option').remove().end();
+        $('#posttypeid').find('option').remove().end();
+        $('#postlayoutid').find('option').remove().end();
+        LoadDataPostType();
+        LoadDataPostLayout();
+        LoadDataPostCategory();
         var obj = await GetDetailItem(id);
-        $.ajax({
-            url: "https://localhost:5001/post/api/delete",
-            type: 'POST',
-            contentType: 'application/JSON',
-            data: JSON.stringify({"id": id}),
-            success: function (responseData) {
-                if (responseData.status == 200 && respnoseData.message === "SUCCESS") {
-                    Swal.fire('Deleted!',
-                        'Item ' + obj.name + ' has been deleted.',
-                        'success');
-                }
-                location.reload();
+        $('#id').val(id);
+        $('#postcategoryid option[value=' + obj[0].PostCategoryID + ']').attr('selected', 'selected');
+        $('#posttypeid option[value=' + obj[0].PostTypeID + ']').attr('selected', 'selected');
+        $('#postlayoutid option[value=' + obj[0].PostLayoutID + ']').attr('selected', 'selected');
+        $('#postpublishid option[value=' + obj[0].PostPublishStatusID + ']').attr('selected', 'selected');
+        $('#postcommentstatusid option[value=' + obj[0].PostCommentStatusID + ']').attr('selected', 'selected');
+        posttext.setData(obj[0].Text);
+        $("#name").val(obj[0].Name);
+        if (obj[0].Photo != null) {
+            $("#photo").val(obj[0].Photo);
+        } else {
+
+        }
+        if (obj[0].Video != null) {
+            $("#video").val(obj[0].Video);
+        } else {
+
+        }
+        $("#url").val(obj[0].Url);
+        $("#description").val(obj[0].Description);
+        $("#publishtime").val(obj[0].PublishedTime);
+    }
+
+    async function DeleteItem(id) {
+        Swal.fire({
+            icon: 'question',
+            title: 'Do you want to delete item',
+            showCancelButton: true,
+            showCloseButton: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var obj = await GetDetailItem(id);
+                $.ajax({
+                    url: "https://localhost:5001/post/api/delete",
+                    type: 'POST',
+                    contentType: 'application/JSON',
+                    data: JSON.stringify({ "id": id }),
+                    success: function (responseData) {
+                        Swal.fire('Deleted!',
+                            'Item ' + obj.name + ' has been deleted.',
+                            'success');
+                        location.reload();
+                    }
+                })
             }
         })
     }

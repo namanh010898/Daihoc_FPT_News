@@ -97,7 +97,6 @@ namespace Daihoc_FPT_News.Controllers
         {
             if (ModelState.IsValid)
             {
-                var listpost = await repositoryPost.List();
                 model.Active = 1;
                 model.CreatedTime = DateTime.Now;
                 if (model.CommentCount == null) model.CommentCount = 0;
@@ -109,6 +108,24 @@ namespace Daihoc_FPT_News.Controllers
                     newObj.Url = NovaticUtil.ConvertToURL(newObj.Id + "-" + newObj.Name);
                     await repositoryPost.Update(newObj);
                     return Created("", newObj);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest();
+                }
+            }
+            return BadRequest();
+        }
+        [HttpPost]
+        [Route("api/edit")]
+        public async Task<IActionResult> Edit([FromBody] Post model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await repositoryPost.Update(model);
+                    return Created("", model);
                 }
                 catch (Exception e)
                 {

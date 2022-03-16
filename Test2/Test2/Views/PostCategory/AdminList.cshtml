@@ -1,0 +1,213 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "Bài viết";
+    Layout = "_Layout - Admin";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Latest compiled and minified JS -->
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Document</title>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+    <style>
+        .modal-footer .btn + .btn {
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <button onclick="window.location.href='/postcategory/add/postcategory'" style="width:100px;height:40px;background-color:lightgreen;border-color:white;float:right;margin-bottom:1%;">Add</button>
+    <table id="example" class="display" style="width:100%;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Mô tả</th>
+                <th>Chi tiết</th>
+                <th>Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < ViewBag.cateCount; i++)
+            {
+                <tr>
+                    <td>@ViewBag.listcate[i].Id</td>
+                    <td>@ViewBag.listcate[i].Name</td>
+                    <td>@ViewBag.listcate[i].Description</td>
+                    <td><button onclick="Edit(@ViewBag.listcate[i].Id)" data-toggle="modal" data-target="#modal-id">Sửa</button></td>
+                    <td><button onclick="DeleteItem(@ViewBag.listcate[i].Id)">Xóa</button></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Mô tả</th>
+                <th>Chi tiết</th>
+                <th>Xóa</th>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="modal fade" id="modal-id">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-info">
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label for="id">ID</label><span style="color:red">*</span>
+                        <input type="text" id="id" readonly />
+                    </div>
+                    <div>
+                        <label for="name">Name</label><span style="color:red">*</span>
+                        <input type="text" id="name" />
+                    </div>
+                    <div>
+                        <label for="slug">Slug</label>
+                        <input type="text" id="slug" readonly />
+                    </div>
+                    <div>
+                        <label for="photo">Photo</label>
+                        <input type="text" id="photo" />
+                    </div>
+                    <div>
+                        <label for="description">Description</label>
+                        <textarea id="description"></textarea>
+                    </div>
+                    <div>
+                        <label for="postcount">Post Count</label>
+                        <input type="text" id="postcount" readonly />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnUpdateItem" onclick="Submit()">
+                        Save
+                        changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    function Submit() {
+        Swal.fire({
+            type: 'question',
+            title: 'Confirm?',
+            text: 'Do you want to edit this post category ?',
+            showCloseButton: true,
+            showCancelButton: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var obj = {
+                    "ID": $("#id").val(),
+                    "Active": 1,
+                    "Slug": $("#slug").val(),
+                    "Photo": $("#photo").val(),
+                    "Name": $("#name").val(),
+                    "Description": $("#description").val()
+                }
+                $.ajax({
+                    url: "https://localhost:5001/postcategory/api/edit",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(obj),
+                    success: function (responseData) {
+                        Swal.fire({
+                            type: 'confirm',
+                            title: '<strong>Đã chỉnh sửa bài viết!</strong>',
+                            showCloseButton: true,
+                            focusConfirm: false,
+                        });
+                        location.reload();
+                    }
+                })
+            } else if (result.isDenied) {
+
+            }
+        })
+    }
+
+    async function GetDetailItem(id) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://localhost:5001/postcategory/api/detail/" + id,
+                type: "GET",
+                async: 'true',
+                contentType: "application/json",
+                success: function (responseData) {
+                    Item = JSON.parse(responseData);
+                    resolve(Item)
+                },
+                error: function (e) {
+                    reject(e);
+                }
+            });
+        })
+    }
+
+    async function Edit(id) {
+        $("#modal-id").show();
+        var obj = await GetDetailItem(id);
+        $('#id').val(id);
+        $("#name").val(obj[0].Name);
+        if (obj[0].Photo != null) {
+            $("#photo").val(obj[0].Photo);
+        } else {
+
+        }
+        $("#slug").val(obj[0].Slug);
+        $("#description").val(obj[0].Description);
+        $("#postcount").val(obj[0].PostCount);
+    }
+
+    async function DeleteItem(id) {
+        Swal.fire({
+            icon: 'question',
+            title: 'Do you want to delete item',
+            showCancelButton: true,
+            showCloseButton: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var obj = await GetDetailItem(id);
+                $.ajax({
+                    url: "https://localhost:5001/postcategory/api/delete",
+                    type: 'POST',
+                    contentType: 'application/JSON',
+                    data: JSON.stringify({ "id": id }),
+                    success: function (responseData) {
+                        Swal.fire('Deleted!',
+                            'Item ' + obj.name + ' has been deleted.',
+                            'success');
+                        location.reload();
+                    }
+                })
+            }
+        })
+    }
+</script>

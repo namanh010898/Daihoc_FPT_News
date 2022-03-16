@@ -1,0 +1,115 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "Bài viết";
+    Layout = "_Layout - Admin";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CKEditor</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="" id="">
+        <div class="modal-dialog modal-lg novaticeditForm">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-info">
+                    <h4 class="modal-title">
+                        <i class="fa fa-edit"></i> <span id="updateTitle">Thêm bài viết</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div>
+                            <label for="id">ID</label><span style="color:red">*</span>
+                            <input type="text" id="id" readonly />
+                        </div>
+                        <div>
+                            <label for="name">Name</label><span style="color:red">*</span>
+                            <input type="text" id="name" />
+                        </div>
+                        <div>
+                            <label for="slug">Slug</label>
+                            <input type="text" id="slug" readonly />
+                        </div>
+                        <div>
+                            <label for="photo">Photo</label>
+                            <input type="text" id="photo" />
+                        </div>
+                        <div>
+                            <label for="description">Description</label>
+                            <textarea id="description"></textarea>
+                        </div>
+                        <div>
+                            <label for="postcount">Post Count</label>
+                            <input type="text" id="postcount" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="display:none" class="btn btn-default" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnUpdateItem"
+                            onclick="Submit()">
+                        Save
+                        changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function Submit() {
+            Swal.fire({
+                type: 'question',
+                title: 'Confirm?',
+                text: 'Do you want to create new post category?',
+                showCloseButton: true,
+                showCancelButton: true
+            }).then((result) => {
+                var photo = "NULL";
+                if ($("#photo").val() != null) {
+                    photo = $("#photo").val();
+                }
+                if (result.isConfirmed) {
+                    var obj = {
+                        "Active": 1,
+                        "ParentID": 0,
+                        "Name": $("#name").val(),
+                        "Slug": "",
+                        "Photo": photo,
+                        "Description": $("#description").val()
+                    }
+                    $.ajax({
+                        url: "https://localhost:5001/postcategory/api/add",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(obj),
+                        success: function (responseData) {
+                            Swal.fire({
+                                type: 'confirm',
+                                title: '<strong>Đã thêm danh mục!</strong>',
+                                showCloseButton: true,
+                                focusConfirm: false,
+                            }).then(resultt => {
+                                if (resultt.isConfirmed) {
+                                    window.location.href = "/postcategory/admin/list";
+                                }
+                            });
+                        }
+                    })
+                } else if (result.isDenied) {
+
+                }
+            })
+        }
+    </script>
+</body>
+</html>

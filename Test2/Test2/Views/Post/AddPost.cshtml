@@ -12,7 +12,6 @@
 <head>
     <meta charset="utf-8">
     <title>CKEditor</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -21,11 +20,8 @@
         <div class="modal-dialog modal-lg novaticeditForm">
             <div class="modal-content">
                 <div class="modal-header bg-gradient-info">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
                     <h4 class="modal-title">
-                        <i class="fa fa-edit"></i> <span id="updateTitle">Chi tiết bài viết</span>
+                        <i class="fa fa-edit"></i> <span id="updateTitle">Thêm bài viết</span>
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -40,6 +36,13 @@
                                 <select id="posttypeid">
                                 </select>
                             </span>
+                        </div>
+                        <div>
+                            <label for="postcategoryid">Post Category</label>
+                            <div>
+                                <select id="postcategoryid">
+                                </select>
+                            </div>
                         </div>
                         <label for="postaccountid">Author</label><span style="color:red">*</span>
                         <div><input type="text" id="postaccountid" readonly /></div>
@@ -102,7 +105,25 @@
                 console.error(error);
             });
 
-
+        function LoadDataPostCategory() {
+            $.ajax({
+                url: "https://localhost:5001/postcategory/api/list",
+                type: "GET",
+                async: 'true',
+                contentType: 'application/json',
+                success: function (responseData) {
+                    postcategorydata = JSON.parse(responseData);
+                    $.each(postcategorydata, function (index, item) {
+                        var data = {
+                            id: item.Id,
+                            text: item.Name
+                        };
+                        var newOption = new Option(data.text, data.id, false, false);
+                        $("#postcategoryid").append(newOption).trigger('change');
+                    });
+                }
+            })
+        }
         function LoadDataPostType() {
             $.ajax({
                 url: "https://localhost:5001/posttype/api/list",
@@ -150,6 +171,7 @@
         $(document).ready(function () {
             LoadDataPostType();
             LoadDataPostLayout();
+            LoadDataPostCategory();
         });
         function Submit() {
             Swal.fire({
@@ -167,7 +189,7 @@
                     } else {
                         var currentdate = new Date();
                         var datetime = currentdate.getDate() + "/"
-                            + (currentdate.getMonth()+1)  + "/"
+                            + (currentdate.getMonth() + 1) + "/"
                             + currentdate.getFullYear() + " "
                             + currentdate.getHours() + ":"
                             + currentdate.getMinutes() + ":"
@@ -195,14 +217,16 @@
                         contentType: "application/json",
                         data: JSON.stringify(obj),
                         success: function (responseData) {
-                            if (responseData.status == 201) {
-                                Swal.fire({
-                                    title: '<strong>Đã đăng bài viết!</strong>',
-                                    type: 'success',
-                                    showCloseButton: true,
-                                    focusConfirm: false,
-                                });
-                            }
+                            Swal.fire({
+                                title: '<strong>Đã đăng bài viết!</strong>',
+                                type: 'success',
+                                showCloseButton: true,
+                                focusConfirm: false,
+                            }).then(resultt => {
+                                if (resultt.isConfirmed) {
+                                    window.location.href = "/post/admin/list";
+                                }
+                            });
                         }
                     })
                 } else if (result.isDenied) {

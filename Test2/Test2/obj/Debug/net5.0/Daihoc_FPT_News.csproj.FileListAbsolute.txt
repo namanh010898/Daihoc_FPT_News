@@ -355,3 +355,5 @@ D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shar
 D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Daihoc_FPT_News.csproj.AssemblyReference.cache
 D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Post\AddPost.cshtml.g.cs
 D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\PostDetail.cshtml.g.cs
+D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\PostCategory\AdminList.cshtml.g.cs
+D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\PostCategory\AddPostCategory.cshtml.g.cs
