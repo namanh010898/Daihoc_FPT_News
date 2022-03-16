@@ -134,5 +134,24 @@ namespace Daihoc_FPT_News.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost]
+        [Route("api/search/{name}")]
+        public async Task<IActionResult> Search(string name)
+        {
+            try
+            {
+                var list = await repositoryPost.ListSearch(name);
+                if(list.Count == 0 || list == null)
+                {
+                    return NotFound();
+                }
+                var response = JsonSerializer.Serialize(list.Cast<object>().ToList());
+                return Ok(response);
+            }catch(Exception e)
+            {
+                return BadRequest();
+            } 
+        }
     }
 }

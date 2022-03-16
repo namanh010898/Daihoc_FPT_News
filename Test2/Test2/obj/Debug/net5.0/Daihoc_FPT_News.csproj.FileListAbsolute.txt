@@ -357,3 +357,4 @@ D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Post
 D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\PostDetail.cshtml.g.cs
 D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\PostCategory\AdminList.cshtml.g.cs
 D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\PostCategory\AddPostCategory.cshtml.g.cs
+D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\Search.cshtml.g.cs

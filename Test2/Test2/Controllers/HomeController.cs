@@ -82,6 +82,17 @@ namespace Daihoc_FPT_News.Controllers
             return View();
         }
         [HttpGet]
+        [Route("search")]
+        public async Task<IActionResult> Search()
+        {
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
+            return View();
+        }
+        [HttpGet]
         [Route("detail/{url}")]
         public async Task<IActionResult> PostDetail(string url)
         {

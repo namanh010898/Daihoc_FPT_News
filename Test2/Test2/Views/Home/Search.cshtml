@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Latest compiled and minified JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+    <style>
+        .card {
+            background-color: #fff;
+            border: none
+        }
+
+        .input-box {
+            position: relative
+        }
+
+        input#searchKeyword-result {
+            height: 45px !important;
+        }
+
+        .input-box i {
+            position: absolute;
+            right: 17px !important;
+            top: 12px !important;
+            color: #ced4da !important;
+            font-size: 21px;
+        }
+
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #eee;
+        }
+    </style>
+
+    <style>
+        .input-box-faq > input {
+            width: 100% !important;
+        }
+    </style>
+    <script>
+        function searchA2FResult() {
+            $('#searhresult').empty();
+            var keyword = $("#searchKeyword-result").val();
+            if (keyword == "") {
+                Swal.fire({
+                    type: 'warning',
+                    title: 'Required',
+                    text: "Search box cannot be empty",
+                    showConfirmButton: true
+                })
+            } else {
+                $.ajax({
+                    url: "https://localhost:5001/post/api/search/" + keyword,
+                    type: "POST",
+                    contentType: 'application/json',
+                    success: function (responseData) {
+                        var list = JSON.parse(responseData);
+                        if (list == null || list.Count == 0) {
+                            var html = '<p>No data</p>';
+                            $('#searhresult').append(html);
+                        } else {
+                            for (var i = 0; i < list.length; i++) {
+                                var html = '<div class="container" style="margin-top:1%;">' +
+                                    '<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">' +
+                                    '<img src="' + list[i].Photo + '" style="width:100%;height:190px;"/>' +
+                                    '</div>' +
+
+                                    '<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">' +
+                                    '<p style="color: #f05123;">' + list[i].CreatedTime + '</p>' +
+                                    '<a href="/detail/'+ list[i].Url +'"><h3>' + list[i].Name + '</h3></a>' +
+                                    '<p>' + list[i].Description + '</p>' +
+                                    '<button style="float: right;color: #f05123;background: transparent;border: none;">xem thêm</button>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
+                                $('#searhresult').append(html);
+                            }
+                        }
+
+                    },
+                    error: function () {
+                        $('#searhresult').empty();
+                        $('#searhresult').append("<p style='text-align:center;font-size:18px;margin-top:2%'>No data</p>");
+                    }
+                })
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div id="seachbox-FAQ" style="width: 100%; height: fit-content; background-color: #f05123;">
+        <div class="row d-flex justify-content-center justify-search-result" style="position: relative;     width: 100%;
+        height: 150px;">
+            <div class="col-md-6" style="position: absolute;
+            left: 25%;
+            top: 35%;">
+                <div class="card">
+                    <div class="input-box input-box-faq" style="background-color: #f05123;"> <input type="text" class="form-control" placeholder="@ViewBag.lblSearch ..." id="searchKeyword-result"> <i class="fa fa-search" style="color: #AEBECC; right : 25px; top : 11px;" onclick="searchA2FResult()"></i> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="searhresult">
+
+    </div>
+    <script>
+        // Get the input field
+        var input = document.getElementById("searchKeyword-result");
+
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                searchA2FResult();
+            }
+        });
+
+    </script>
+</body>
+
+
+

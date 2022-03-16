@@ -54,6 +54,15 @@ namespace Daihoc_FPT_News.Repository
             return null;
         }
 
+        public async Task<List<Post>> ListSearch(string name)
+        {
+            if (db != null)
+            {
+                return await db.Posts.Where(x => x.Name.Contains(name) && x.Active == 1).ToListAsync();
+            }
+            return null;
+        }
+
         public async Task Update(Post obj)
         {
             if(db != null)
