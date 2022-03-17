@@ -358,3 +358,10 @@ D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home
 D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\PostCategory\AdminList.cshtml.g.cs
 D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\PostCategory\AddPostCategory.cshtml.g.cs
 D:\FinalPLSDMNAMANH\DaiHocFPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\Search.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\PostDetail.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Home\Search.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\PostCategory\AddPostCategory.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\PostCategory\AdminList.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Post\AddPost.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Post\AdminList.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shared\News_Detail.cshtml.g.cs
