@@ -54,6 +54,43 @@ namespace Daihoc_FPT_News.Repository
             return null;
         }
 
+
+        // List tất cả các sự kiện sắp xếp từ mới đến cũ
+        public async Task<List<Post>> ListAllEvent()
+        {
+            if (db != null)
+            {
+                return await db.Posts.Where(p => p.Active == 1 && p.PostCategoryId == 3).ToListAsync();
+            }
+            return null;
+        }
+
+        //List Paging Event dang dien ra
+        public async Task<List<Post>> ListEventsIsGoingOnPaging(int pageIndex, int pageSize)
+        {
+            int offSet = 0;
+            offSet = (pageIndex - 1) * pageSize;
+            if (db != null)
+            {
+                return await db.Posts.Where(p => p.Active == 1 && p.PostCategoryId == 3 &&  p.OpenTime < DateTime.Now && p.ClosedTime > DateTime.Now).Skip(offSet).Take(pageSize).ToListAsync(); ;
+            } 
+            return null;
+
+        }
+
+        //List Paging Event dang dien ra
+        public async Task<List<Post>> ListEventsEndedPaging(int pageIndex, int pageSize)
+        {
+            int offSet = 0;
+            offSet = (pageIndex - 1) * pageSize;
+            if (db != null)
+            {
+                return await db.Posts.Where(p => p.Active == 1 && p.PostCategoryId == 3 &&  p.ClosedTime < DateTime.Now).Skip(offSet).Take(pageSize).ToListAsync(); ;
+            } 
+            return null;
+
+        }
+
         public async Task<List<Post>> ListSearch(string name)
         {
             if (db != null)

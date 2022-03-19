@@ -10,6 +10,7 @@ using Daihoc_FPT_News.Controllers;
 using Daihoc_FPT_News.Models;
 using Daihoc_FPT_News.Repository;
 using Daihoc_FPT_News.Util;
+using Newtonsoft.Json;
 //using Daihoc_FPT_News.ViewModel;
 
 namespace Daihoc_FPT_News.Controllers
@@ -48,12 +49,74 @@ namespace Daihoc_FPT_News.Controllers
 
             string lang = "vi";
             List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
+            ViewBag.MenuList = MenuList;
+            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
+            ViewBag.MenuListFooter = MenuListFooter;
+
+            return View();
+        }
+
+        // trang su kien
+        [HttpGet] 
+        [Route("thu-vien")]
+        public async Task<IActionResult> Event()
+        {  
+            string lang = "vi";
+            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
             ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
             List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
             ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
 
+            var HaveListEventAboutToStartSoon = 0;
+            var listAllEvent = await repositoryPost.ListAllEvent();
+            if (listAllEvent != null && listAllEvent.Count > 0)
+            {
+                ViewBag.listAllEvent = listAllEvent;
+            }
+
+            
+
+            List<Post> listPostEventAboutToStartSoon = new List<Post>();
+            if (listAllEvent != null && listAllEvent.Count > 0)
+            {
+                for (int i = 0; i < listAllEvent.Count; i++)
+                {
+                    if (DateTime.Now < listAllEvent[i].OpenTime)
+                    {
+                        listPostEventAboutToStartSoon.Add(listAllEvent[i]);
+                    }
+                }
+                if (listPostEventAboutToStartSoon.Count > 0)
+                {
+                    HaveListEventAboutToStartSoon = 1;
+                }
+                ViewBag.listPostEventAboutToStartSoon = listPostEventAboutToStartSoon;
+                ViewBag.listPostEventAboutToStartSoonJson = JsonConvert.SerializeObject(listPostEventAboutToStartSoon);
+            }
+            ViewBag.HaveListEventAboutToStartSoon = HaveListEventAboutToStartSoon;
+
+            var HaveListEventsIsGoingOn = 0;
+            var ListEventsIsGoingOn = await repositoryPost.ListEventsIsGoingOnPaging(1, 4);
+            if (ListEventsIsGoingOn != null && ListEventsIsGoingOn.Count > 0)
+            {
+                HaveListEventsIsGoingOn = 1;
+                ViewBag.ListEventsIsGoingOn = ListEventsIsGoingOn;
+            }
+            ViewBag.HaveListEventsIsGoingOn = HaveListEventsIsGoingOn;
+
+            var HavelistEventsEnded = 0;
+            var listEventsEnded = await repositoryPost.ListEventsEndedPaging(1, 4);
+            if (listEventsEnded != null && listEventsEnded.Count > 0)
+            {
+                HavelistEventsEnded = 1;
+                ViewBag.listEventsEnded = listEventsEnded;
+            }
+            ViewBag.HavelistEventsEnded = HavelistEventsEnded;
+
             return View();
         }
+
+
         [HttpGet]
         [Route("news")]
         public async Task<IActionResult> news()
