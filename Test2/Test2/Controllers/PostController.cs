@@ -39,6 +39,17 @@ namespace Daihoc_FPT_News.Controllers
             ViewBag.PostCount = listPost.Count;
             return View();
         }
+
+        [HttpGet]
+        [Route("admin/listEvents")]
+        public async Task<IActionResult> AdminListEvents()
+        {
+            var listPost = await repositoryPost.List();
+            ViewBag.Posts = listPost;
+            ViewBag.PostCount = listPost.Count;
+            return View();
+        }
+
         [HttpGet]
         [Route("add/post")]
         public async Task<IActionResult> AddPost()

@@ -371,3 +371,4 @@ C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Raz
 C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shared\DaihocFPTNews\_Carousel_Events.cshtml.g.cs
 C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shared\DaihocFPTNews\_Group_Item_Event_Ended.cshtml.g.cs
 C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Shared\DaihocFPTNews\_Group_Item_Event_Going_On.cshtml.g.cs
+C:\Users\naman\Documents\GitHub\Daihoc_FPT_News\Test2\Test2\obj\Debug\net5.0\Razor\Views\Post\AdminListEvents.cshtml.g.cs

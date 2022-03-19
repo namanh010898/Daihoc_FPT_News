@@ -12,7 +12,7 @@ namespace Daihoc_FPT_News
     public class Program
     {
         public static void Main(string[] args)
-        {
+      {
             CreateHostBuilder(args).Build().Run();
         }
 
