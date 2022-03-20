@@ -19,5 +19,8 @@ namespace Daihoc_FPT_News.Repository
         Task Delete(Post post);
         Task Update(Post post);
         Task<List<Post>> ListSearch(string name);
+        Task<List<Post>> ListGeneral();
+        Task<List<Post>> ListEvent();
+
     }
 }
