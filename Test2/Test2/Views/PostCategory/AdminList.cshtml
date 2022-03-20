@@ -4,7 +4,7 @@
 @{
 }
 @{
-    ViewData["Title"] = "Danh mục bài viết";
+    ViewData["Title"] = "Bài viết";
     Layout = "_Layout - Admin";
 }
 <!DOCTYPE html>
@@ -124,46 +124,29 @@
             showCancelButton: true
         }).then((result) => {
             if (result.isConfirmed) {
-                if ($("#name").val().length == 0 || $("#name").val() == null || $("#name").val().length > 255) {
-                    Swal.fire({
-                        type: 'Error',
-                        title: 'Invalid Name',
-                        text: 'Please use a different name!'
-                    })
-                } else if (!$("#photo").val().includes(".jpeg"))
-                {
-                    Swal.fire({
-                        type: 'Error',
-                        title: 'Invalid Photo',
-                        text: 'Please use a different Photo have .jpeg!'
-                    })
+                var obj = {
+                    "ID": $("#id").val(),
+                    "Active": 1,
+                    "Slug": $("#slug").val(),
+                    "Photo": $("#photo").val(),
+                    "Name": $("#name").val(),
+                    "Description": $("#description").val()
                 }
-                else {
-                    var obj = {
-                        "ID": $("#id").val(),
-                        "Active": 1,
-                        "Slug": $("#slug").val(),
-                        "Photo": $("#photo").val(),
-                        "Name": $("#name").val(),
-                        "Description": $("#description").val()
+                $.ajax({
+                    url: "https://localhost:5001/postcategory/api/edit",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(obj),
+                    success: function (responseData) {
+                        Swal.fire({
+                            type: 'confirm',
+                            title: '<strong>Đã chỉnh sửa bài viết!</strong>',
+                            showCloseButton: true,
+                            focusConfirm: false,
+                        });
+                        location.reload();
                     }
-                    $.ajax({
-                        url: "https://localhost:5001/postcategory/api/edit",
-                        type: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify(obj),
-                        success: function (responseData) {
-                            Swal.fire({
-                                type: 'confirm',
-                                title: '<strong>Đã chỉnh sửa bài viết!</strong>',
-                                showCloseButton: true,
-                                focusConfirm: false,
-                            });
-                            location.reload();
-                        }
-                    })
-                }
-                
+                })
             } else if (result.isDenied) {
 
             }
@@ -188,7 +171,7 @@
         })
     }
 
-     async function Edit(id) {
+    async function Edit(id) {
         $("#modal-id").show();
         var obj = await GetDetailItem(id);
         $('#id').val(id);
@@ -203,7 +186,7 @@
         $("#postcount").val(obj[0].PostCount);
     }
 
-     function DeleteItem(id) {
+    async function DeleteItem(id) {
         Swal.fire({
             icon: 'question',
             title: 'Do you want to delete item',
@@ -211,7 +194,7 @@
             showCloseButton: true
         }).then((result) => {
             if (result.isConfirmed) {
-                var obj = GetDetailItem(id);
+                var obj = await GetDetailItem(id);
                 $.ajax({
                     url: "https://localhost:5001/postcategory/api/delete",
                     type: 'POST',

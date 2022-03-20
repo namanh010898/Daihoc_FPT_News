@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Latest compiled and minified JS -->
     @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
-
+ 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
     <title>Document</title>
@@ -75,13 +75,15 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <label for="id">ID</label><span style="color:red">*</span>
-                        <input type="text" id="id" readonly />
-                    </div>
-                    <div>
-                        <label for="posttypeid">Post Type</label><span style="color:red">*</span>
-                        <select id="posttypeid">
-                        </select>
+                        <span>
+                            <label for="id">ID</label><span style="color:red">*</span>
+                            <input type="text" id="id" readonly />
+                        </span>
+                        <span>
+                            <label for="posttypeid">Post Type</label><span style="color:red">*</span>
+                            <select id="posttypeid">
+                            </select>
+                        </span>
                     </div>
                     <div>
                         <label for="postcategoryid">Post Category</label>
@@ -217,7 +219,7 @@
             }
         })
     }
-
+    
     function Submit() {
         Swal.fire({
             type: 'question',
@@ -228,68 +230,37 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 var data = posttext.getData();
-                if ($("#name").val().length == 0 || $("#name").val() == null || $("#name").val().length > 255) {
-                    Swal.fire({
-                        type: 'Error',
-                        title: 'Invalid Name',
-                        text: 'Please use a different name!'
-                    })
-                } else if ($("#photo").val().length > 0) {
-                    if (!$("#photo").val().includes(".jpeg")) {
-                        Swal.fire({
-                            type: 'Error',
-                            title: 'Invalid Photo',
-                            text: 'Please use a different Photo have .jpeg!'
-                        })
-                    }
-                } else if (data == null || data.length == 0) {
-                    Swal.fire({
-                        type: 'Error',
-                        title: 'Invalid Content',
-                        text: 'Content cannot be empty'
-                    })
-                } else {
-                   
-                    var obj = {
-                        "ID": $("#id").val(),
-                        "PostTypeID": $("#posttypeid").val(),
-                        "PostAccountID": 10001,
-                        "PostLayoutID": $("#postlayoutid").val(),
-                        "PostPublishStatusID": $("#postpublishid").val(),
-                        "PostCommentStatusID": $("#postcommentstatusid").val(),
-                        "Active": 1,
-                        "Url": $("#url").val(),
-                        "Photo": $("#photo").val(),
-                        "Video": $("#video").val(),
-                        "Name": $("#name").val(),
-                        "Description": $("#description").val(),
-                        "Text": data,
-                        "PublishedTime": $("#publishtime").val()
-                    }
-                    $.ajax({
-                        url: "https://localhost:5001/post/api/edit",
-                        type: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify(obj),
-                        success: function (responseData) {
-                            Swal.fire({
-                                type: 'confirm',
-                                title: '<strong>Đã chỉnh sửa bài viết!</strong>',
-                                showCloseButton: true,
-                                focusConfirm: false,
-                            });
-                            location.reload();
-                        },
-                        error: function () {
-                            Swal.fire({
-                                type: 'Error',
-                                title: 'Invalid data',
-                                text: 'Item has not edit'
-                            })
-                        }
-                    })
+                var obj = {
+                    "ID": $("#id").val(),
+                    "PostTypeID": $("#posttypeid").val(),
+                    "PostAccountID": 10001,
+                    "PostLayoutID": $("#postlayoutid").val(),
+                    "PostPublishStatusID": $("#postpublishid").val(),
+                    "PostCommentStatusID": $("#postcommentstatusid").val(),
+                    "Active": 1,
+                    "Url": $("#url").val(),
+                    "Photo": $("#photo").val(),
+                    "Video": $("#video").val(),
+                    "Name": $("#name").val(),
+                    "Description": $("#description").val(),
+                    "Text": data,
+                    "PublishedTime": $("#publishtime").val()
                 }
-                
+                $.ajax({
+                    url: "https://localhost:5001/post/api/edit",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(obj),
+                    success: function (responseData) {
+                        Swal.fire({
+                            type: 'confirm',
+                            title: '<strong>Đã chỉnh sửa bài viết!</strong>',
+                            showCloseButton: true,
+                            focusConfirm: false,
+                        });
+                        location.reload();
+                    }
+                })
             } else if (result.isDenied) {
 
             }
@@ -346,7 +317,7 @@
         $("#publishtime").val(obj[0].PublishedTime);
     }
 
-    function DeleteItem(id) {
+    async function DeleteItem(id) {
         Swal.fire({
             icon: 'question',
             title: 'Do you want to delete item',
@@ -354,6 +325,7 @@
             showCloseButton: true
         }).then((result) => {
             if (result.isConfirmed) {
+                var obj = await GetDetailItem(id);
                 $.ajax({
                     url: "https://localhost:5001/post/api/delete",
                     type: 'POST',
@@ -361,7 +333,7 @@
                     data: JSON.stringify({ "id": id }),
                     success: function (responseData) {
                         Swal.fire('Deleted!',
-                            'Item has been deleted.',
+                            'Item ' + obj.name + ' has been deleted.',
                             'success');
                         location.reload();
                     }
