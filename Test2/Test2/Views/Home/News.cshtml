@@ -45,9 +45,9 @@
 
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                     <p style="color: #f05123;">@ViewBag.Post[0].CreatedTime</p>
-                    <h3>@ViewBag.Post[0].Name</h3>
+                    <a href='"/detail/" + "@ViewBag.Post[0].Url"'><h3 style="color:black">@ViewBag.Post[0].Name</h3></a>
                     <p>@ViewBag.Post[0].Description</p>
-                    <button style="float: right;color: #f05123;background: transparent;border: none;">xem thêm</button>
+                    <button style="float: right;color: #f05123;background: transparent;border: none;" onclick="window.location.href = '/detail/' + '@ViewBag.Post[0].Url'">XEM THÊM</button>
                 </div>
 
             </div>
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <a href="/detail/@ViewBag.Post[i].Url">@ViewBag.Post[i].Name</a>
+                        <a href="/detail/@ViewBag.Post[i].Url"><p>@ViewBag.Post[i].Name</p></a>
                         <p>@ViewBag.Post[i].CreatedTime</p>
                     </div>
 

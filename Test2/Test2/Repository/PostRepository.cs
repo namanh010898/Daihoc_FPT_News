@@ -54,6 +54,24 @@ namespace Daihoc_FPT_News.Repository
             return null;
         }
 
+        public async Task<List<Post>> ListEvent()
+        {
+            if (db != null)
+            {
+                return await db.Posts.Where(p => p.PostCategoryId == 3 && p.Active == 1).ToListAsync();
+            }
+            return null;
+        }
+
+        public async Task<List<Post>> ListGeneral()
+        {
+            if (db != null)
+            {
+                return await db.Posts.Where(p => p.PostCategoryId == 1 && p.Active == 1).ToListAsync();
+            }
+            return null;
+        }
+
 
         // List tất cả các sự kiện sắp xếp từ mới đến cũ
         public async Task<List<Post>> ListAllEvent()

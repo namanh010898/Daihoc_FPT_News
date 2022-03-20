@@ -4,7 +4,7 @@
 @{
 }
 @{
-    ViewData["Title"] = "Danh mục bài viết";
+    ViewData["Title"] = "Tag";
     Layout = "_Layout - Admin";
 }
 <!DOCTYPE html>
@@ -46,14 +46,14 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < ViewBag.cateCount; i++)
+            @for (int i = 0; i < ViewBag.tagcount; i++)
             {
                 <tr>
-                    <td>@ViewBag.listcate[i].Id</td>
-                    <td>@ViewBag.listcate[i].Name</td>
-                    <td>@ViewBag.listcate[i].Description</td>
-                    <td><button onclick="Edit(@ViewBag.listcate[i].Id)" data-toggle="modal" data-target="#modal-id">Sửa</button></td>
-                    <td><button onclick="DeleteItem(@ViewBag.listcate[i].Id)">Xóa</button></td>
+                    <td>@ViewBag.listtag[i].Id</td>
+                    <td>@ViewBag.listtag[i].Name</td>
+                    <td>@ViewBag.listtag[i].Description</td>
+                    <td><button onclick="Edit(@ViewBag.listtag[i].Id)" data-toggle="modal" data-target="#modal-id">Sửa</button></td>
+                    <td><button onclick="DeleteItem(@ViewBag.listtag[i].Id)">Xóa</button></td>
                 </tr>
             }
         </tbody>
@@ -163,7 +163,7 @@
                         }
                     })
                 }
-                
+
             } else if (result.isDenied) {
 
             }
