@@ -17,14 +17,12 @@ namespace Daihoc_FPT_News.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         IPostRepository repositoryPost;
-        IMenuRepository repositoryMenu;
+
         public PostController(ILogger<HomeController> logger,
             ICacheHelper cacheHelper,
-            IPostRepository _repositoryPost,
-            IMenuRepository _repositoryMenu
+            IPostRepository _repositoryPost
             ) : base(cacheHelper)
         {
-            repositoryMenu = _repositoryMenu;
             repositoryPost = _repositoryPost;
             _logger = logger;
 
@@ -41,37 +39,6 @@ namespace Daihoc_FPT_News.Controllers
             ViewBag.PostCount = listPost.Count;
             return View();
         }
-
-        [HttpGet]
-        [Route("general-new")]
-        public async Task<IActionResult> GeneralNew()
-        {
-            string lang = "vi";
-            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
-            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
-            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
-            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
-            var listPost = await repositoryPost.ListGeneral();
-            ViewBag.Posts = listPost;
-            ViewBag.PostCount = listPost.Count;
-            return View();
-        }
-
-        [HttpGet]
-        [Route("events")]
-        public async Task<IActionResult> Event()
-        {
-            string lang = "vi";
-            List<Menu> MenuList = await repositoryMenu.ListMenuHeader();
-            ViewBag.MenuList = NovaticUtil.ChangeMenuLanguage(MenuList, lang);
-            List<Menu> MenuListFooter = await repositoryMenu.ListMenuFooter();
-            ViewBag.MenuListFooter = NovaticUtil.ChangeMenuLanguage(MenuListFooter, lang);
-            var listPost = await repositoryPost.ListEvent();
-            ViewBag.Posts = listPost;
-            ViewBag.PostCount = listPost.Count;
-            return View();
-        }
-
         [HttpGet]
         [Route("add/post")]
         public async Task<IActionResult> AddPost()

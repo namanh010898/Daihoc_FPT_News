@@ -79,49 +79,32 @@
                     photo = $("#photo").val();
                 }
                 if (result.isConfirmed) {
-                    if ($("#name").val().length == 0 || $("#name").val() == null || $("#name").val().length > 255) {
-                        Swal.fire({
-                            type: 'Error',
-                            title: 'Invalid Name',
-                            text: 'Please use a different name!'
-                        })
-                    } else if ($("#photo").val().length > 0) {
-                        if ($("#photo").val().includes(".jpeg")) {
-                            Swal.fire({
-                                type: 'Error',
-                                title: 'Invalid Photo',
-                                text: 'Please use a different Photo have .jpeg!'
-                            })
-                        }
-                    } else {
-                        var obj = {
-                            "Active": 1,
-                            "ParentID": 0,
-                            "Name": $("#name").val(),
-                            "Slug": "",
-                            "Photo": photo,
-                            "Description": $("#description").val()
-                            }
-                            $.ajax({
-                               url: "https://localhost:5001/postcategory/api/add",
-                               type: "POST",
-                               contentType: "application/json",
-                               data: JSON.stringify(obj),
-                               success: function (responseData) {
-                                    Swal.fire({
-                                        type: 'confirm',
-                                        title: '<strong>Đã thêm danh mục!</strong>',
-                                        showCloseButton: true,
-                                        focusConfirm: false,
-                                    }).then(resultt => {
-                                        if (resultt.isConfirmed) {
-                                            window.location.href = "/postcategory/admin/list";
-                                        }
-                                    });
-                               }
-                            })
+                    var obj = {
+                        "Active": 1,
+                        "ParentID": 0,
+                        "Name": $("#name").val(),
+                        "Slug": "",
+                        "Photo": photo,
+                        "Description": $("#description").val()
                     }
-
+                    $.ajax({
+                        url: "https://localhost:5001/postcategory/api/add",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(obj),
+                        success: function (responseData) {
+                            Swal.fire({
+                                type: 'confirm',
+                                title: '<strong>Đã thêm danh mục!</strong>',
+                                showCloseButton: true,
+                                focusConfirm: false,
+                            }).then(resultt => {
+                                if (resultt.isConfirmed) {
+                                    window.location.href = "/postcategory/admin/list";
+                                }
+                            });
+                        }
+                    })
                 } else if (result.isDenied) {
 
                 }
